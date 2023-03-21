@@ -1,18 +1,12 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import './App.css'
-import { Header, Catalog, CatalogList, Footer } from './containers'
 
 function App() {
-  const [data, setData] = useState({})
+  const [count, setCount] = useState(0)
 
   return (
-    <>
-      <Header />
-      <Catalog title="Movies" data={[]} />
-      <Catalog title="Series" data={[]} />
-      <CatalogList />
-      <Footer />
-    </>
+    <div>
+    </div>
   )
 }
 
