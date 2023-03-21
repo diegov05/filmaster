@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { FC } from 'react'
 import "./MovieItem.css"
-export default function MovieItem() {
+
+export const MovieItem: FC = () => {
     return (
         <div>MovieItem</div>
     )

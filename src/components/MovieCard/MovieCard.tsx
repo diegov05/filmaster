@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { FC } from 'react'
 import "./MovieCard.css"
 
-export default function MovieCard() {
+export const MovieCard: FC = () => {
     return (
         <div>MovieCard</div>
     )

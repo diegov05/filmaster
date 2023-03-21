@@ -1,8 +1,13 @@
-import React from 'react'
+import React, { FC } from 'react'
 import "./Catalog.css"
 
-export default function Catalog() {
+interface Props {
+    title: string,
+    data: []
+}
+
+export const Catalog: FC<Props> = (props) => {
     return (
-        <div>Catalog</div>
+        <div></div>
     )
 }

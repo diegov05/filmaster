@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { FC } from 'react'
 import "./CatalogList.css"
 
-export default function CatalogList() {
+export const CatalogList: FC = () => {
     return (
         <div>CatalogList</div>
     )

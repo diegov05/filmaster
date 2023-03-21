@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { FC } from 'react'
 import "./Header.css"
 
-export default function Header() {
+export const Header: FC = () => {
     return (
         <div>Header</div>
     )
