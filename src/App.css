@@ -1,0 +1,35 @@
+.headtext {
+    font-family: var(--font-base);
+    font-weight: var(--black-text);
+    font-size: 96px;
+    font-style: normal;
+    line-height: 117px;
+    color: var(--white-color);
+}
+
+.paragraph {
+    font-family: var(--font-base);
+    font-weight: var(--bold-text);
+    font-style: normal;
+    font-size: 16px;
+    line-height: 20px;
+    color: #8A8A8A;
+}
+
+.subtitle {
+    font-family: var(--font-base);
+    font-weight: var(--light-text);
+    font-style: normal;
+    font-size: 32px;
+    line-height: 39px;
+    color: #B5B5B5;
+}
+
+.custom__button {
+    border-radius: 75px;
+    font-family: var(--font-base);
+    font-style: normal;
+    font-weight: var(--black-text);
+    font-size: 14px;
+    line-height: 17px;
+}

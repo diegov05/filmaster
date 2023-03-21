@@ -8,7 +8,7 @@
     --font-base: "Montserrat";
 
     --black-text: 900;
-    --bold-text: 600;
+    --bold-text: 500;
     --regular-text: 400;
     --light-text: 300;
     --extra-light-text: 200;
@@ -36,4 +36,13 @@ a {
 
 ul {
     list-style: none;
+}
+
+input {
+    border: 0;
+    outline: 0;
+}
+
+input:focus {
+    outline: focus;
 }
