@@ -1,9 +1,7 @@
 .headtext {
     font-family: var(--font-base);
     font-weight: var(--black-text);
-    font-size: 96px;
     font-style: normal;
-    line-height: 117px;
     color: var(--white-color);
 }
 
@@ -13,7 +11,7 @@
     font-style: normal;
     font-size: 16px;
     line-height: 20px;
-    color: #8A8A8A;
+    color: #ffffff;
 }
 
 .subtitle {
@@ -32,4 +30,15 @@
     font-weight: var(--black-text);
     font-size: 14px;
     line-height: 17px;
+    padding: .4rem 1rem;
+    border: 1px solid white;
+    transition: .3s;
+}
+
+.custom__icon {
+    width: 14px;
+    height: 14px;
+    color: #fff;
+    transition: .3s;
+    cursor: pointer;
 }

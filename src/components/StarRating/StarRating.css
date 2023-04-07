@@ -1,0 +1,42 @@
+.container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: row;
+}
+
+.container .star-widget input {
+    display: none;
+}
+
+.container .star-widget input:not(checked)~label .star:hover,
+.container .star-widget input:not(checked)~label .star:hover~label .star {
+    outline: 0;
+    border: 0;
+    color: var(--dark-purple-color);
+    fill: var(--dark-purple-color);
+}
+
+.container .star-widget input:checked~label .star {
+    color: var(--dark-purple-color);
+    fill: var(--dark-purple-color);
+}
+
+.container .star-widget form :nth-child(1):checked~label .star {
+    color: var(--golden-color);
+    fill: var(--golden-color);
+    text-shadow: 0 0 20px #952;
+}
+
+.container .star-widget form :nth-child(1):checked~label .star {
+    color: var(--golden-color);
+    fill: var(--golden-color);
+    text-shadow: 0 0 20px #952;
+}
+
+
+.container .star-widget {
+    display: flex;
+    flex-direction: row;
+    gap: 0;
+}

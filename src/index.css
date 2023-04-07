@@ -20,6 +20,7 @@
     --black-color: #0c0c0c;
     --gray-color: #272727;
     --dark-gray-color: #252525;
+    --golden-color: #FFD600;
 }
 
 * {
@@ -27,6 +28,7 @@
     padding: 0;
     margin: 0;
     scroll-behavior: smooth;
+    overflow-x: hidden;
 }
 
 a {

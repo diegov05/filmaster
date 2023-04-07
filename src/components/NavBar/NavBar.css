@@ -1,0 +1,72 @@
+.app__wrapper-navbar {
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    z-index: 100;
+    width: 100%;
+}
+
+.app__wrapper-navbar_logo img {
+    width: 125px;
+}
+
+.app__wrapper-navbar_user {
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    gap: 1rem;
+    overflow-y: hidden;
+}
+
+.app__wrapper-navbar_user-register {
+    overflow-y: hidden;
+}
+
+.app__wrapper-navbar_user-register a {
+    padding: .4rem 1rem;
+    border: 1px solid white;
+    transition: .3s;
+}
+
+.app__wrapper-navbar_user-register a:hover {
+    color: #fff;
+}
+
+.magnifying__icon {
+    color: #ffffff;
+    transition: .3s;
+}
+
+.magnifying__icon:hover {
+    color: #d3d3d3;
+}
+
+a.paragraph {
+    transition: .3s;
+}
+
+a.paragraph:hover {
+    color: #d3d3d3;
+}
+
+/* clears the ‘X’ in Search Input */
+input[type=search]::-ms-clear {
+    display: none;
+    width: 0;
+    height: 0;
+}
+
+input[type=search]::-ms-reveal {
+    display: none;
+    width: 0;
+    height: 0;
+}
+
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+    display: none;
+}

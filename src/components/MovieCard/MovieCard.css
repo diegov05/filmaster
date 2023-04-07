@@ -1,0 +1,12 @@
+.movie-card:hover .movie-card-overlay-image {
+    display: block;
+    position: absolute;
+}
+
+.movie-card:hover .custom__icon {
+    opacity: 1;
+}
+
+.movie-card:hover div {
+    opacity: 1;
+}
