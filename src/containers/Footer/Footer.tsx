@@ -12,76 +12,76 @@ export const Footer: FC = () => {
                 <div className='flex flex-col gap-4 justify-start items-start'>
                     <h3 className='headtext font-medium cursor-default'>Filmaster</h3>
                     <a href="">
-                        <p className="link">Updates</p>
+                        <p className="link border-b border-b-transparent hover:border-b-slate-300">Updates</p>
                     </a>
                     <a href="">
-                        <p className="link">Beta</p>
+                        <p className="link border-b border-b-transparent hover:border-b-slate-300">Beta</p>
                     </a>
                     <a href="">
-                        <p className="link">Newsletter</p>
+                        <p className="link border-b border-b-transparent hover:border-b-slate-300">Newsletter</p>
                     </a>
                     <a href="">
-                        <p className="link">Collaborations</p>
+                        <p className="link border-b border-b-transparent hover:border-b-slate-300">Collaborations</p>
                     </a>
                 </div>
                 <div className='flex flex-col gap-4 justify-start items-start'>
                     <h3 className='headtext font-medium cursor-default'>Product</h3>
                     <a href="">
-                        <p className="link">Business</p>
+                        <p className="link border-b border-b-transparent hover:border-b-slate-300">Business</p>
                     </a>
                     <a href="">
-                        <p className="link">Designers</p>
+                        <p className="link border-b border-b-transparent hover:border-b-slate-300">Designers</p>
                     </a>
                     <a href="">
-                        <p className="link">Classrooms</p>
+                        <p className="link border-b border-b-transparent hover:border-b-slate-300">Classrooms</p>
                     </a>
                     <a href="">
-                        <p className="link">Newcomers</p>
+                        <p className="link border-b border-b-transparent hover:border-b-slate-300">Newcomers</p>
                     </a>
                 </div>
                 <div className='flex flex-col gap-4 justify-start items-start'>
                     <h3 className='headtext font-medium cursor-default'>Learning</h3>
                     <a href="">
-                        <p className="link">Learn Hub</p>
+                        <p className="link border-b border-b-transparent hover:border-b-slate-300">Learn Hub</p>
                     </a>
                     <a href="">
-                        <p className="link">Manuals</p>
+                        <p className="link border-b border-b-transparent hover:border-b-slate-300">Manuals</p>
                     </a>
                     <a href="">
-                        <p className="link">Tutorials</p>
+                        <p className="link border-b border-b-transparent hover:border-b-slate-300">Tutorials</p>
                     </a>
                     <a href="">
-                        <p className="link">Communities</p>
+                        <p className="link border-b border-b-transparent hover:border-b-slate-300">Communities</p>
                     </a>
                 </div>
                 <div className='flex flex-col gap-4 justify-start items-start'>
                     <h3 className='headtext font-medium cursor-default'>Resources</h3>
                     <a href="">
-                        <p className="link">Tutorials</p>
+                        <p className="link border-b border-b-transparent hover:border-b-slate-300">Tutorials</p>
                     </a>
                     <a href="">
-                        <p className="link">Editorials</p>
+                        <p className="link border-b border-b-transparent hover:border-b-slate-300">Editorials</p>
                     </a>
                     <a href="">
-                        <p className="link">Product</p>
+                        <p className="link border-b border-b-transparent hover:border-b-slate-300">Product</p>
                     </a>
                     <a href="">
-                        <p className="link">Newsroom</p>
+                        <p className="link border-b border-b-transparent hover:border-b-slate-300">Newsroom</p>
                     </a>
                 </div>
                 <div className='flex flex-col gap-4 justify-start items-start'>
                     <h3 className='headtext font-medium cursor-default'>About</h3>
                     <a href="">
-                        <p className="link">Company</p>
+                        <p className="link border-b border-b-transparent hover:border-b-slate-300">Company</p>
                     </a>
                     <a href="">
-                        <p className="link">Careers</p>
+                        <p className="link border-b border-b-transparent hover:border-b-slate-300">Careers</p>
                     </a>
                     <a href="">
-                        <p className="link">Legal</p>
+                        <p className="link border-b border-b-transparent hover:border-b-slate-300">Legal</p>
                     </a>
                     <a href="">
-                        <p className="link">Help</p>
+                        <p className="link border-b border-b-transparent hover:border-b-slate-300">Help</p>
                     </a>
                 </div>
             </div>
