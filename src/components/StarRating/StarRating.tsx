@@ -23,7 +23,7 @@ export const StarRating: FC<Props> = (props) => {
                             {props.initialValue > 9
                                 ? <StarIcon
                                     style={{
-                                        color: "transparent",
+                                        color: "var(--dark-purple-color)",
                                         fill: "var(--dark-purple-color)"
                                     }}
                                     className={`
@@ -52,7 +52,7 @@ export const StarRating: FC<Props> = (props) => {
                                 > 7
                                 ? <StarIcon
                                     style={{
-                                        color: "transparent",
+                                        color: "var(--dark-purple-color)",
                                         fill: "var(--dark-purple-color)"
                                     }}
                                     className={`
@@ -76,7 +76,7 @@ export const StarRating: FC<Props> = (props) => {
                                 > 5
                                 ? <StarIcon
                                     style={{
-                                        color: "transparent",
+                                        color: "var(--dark-purple-color)",
                                         fill: "var(--dark-purple-color)"
                                     }}
                                     className={`
@@ -100,7 +100,7 @@ export const StarRating: FC<Props> = (props) => {
                                 > 3
                                 ? <StarIcon
                                     style={{
-                                        color: "transparent",
+                                        color: "var(--dark-purple-color)",
                                         fill: "var(--dark-purple-color)"
                                     }}
                                     className={`
@@ -124,7 +124,7 @@ export const StarRating: FC<Props> = (props) => {
                                 > 1
                                 ? <StarIcon
                                     style={{
-                                        color: "transparent",
+                                        color: "var(--dark-purple-color)",
                                         fill: "var(--dark-purple-color)"
                                     }}
                                     className={`

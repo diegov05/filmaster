@@ -17,6 +17,11 @@ export const MovieCard: FC<Props> = (props) => {
     const [movieGenres, setMovieGenres] = useState([])
     const [seriesGenres, setSeriesGenres] = useState([])
     const [movieCrew, setMovieCrew] = useState([])
+    const [isPreviewVisible, setIsPreviewVisible] = useState(false)
+
+    const handleHover = () => {
+        setIsPreviewVisible(prevState => !prevState)
+    }
 
     const movie = props.movie
 
@@ -51,7 +56,7 @@ export const MovieCard: FC<Props> = (props) => {
                 <img className='transition-all duration-300 hover:opacity-50 cursor-pointer rounded-3xl h-96 w-64 mt-5' src={`https://image.tmdb.org/t/p/original${props.movie?.poster_path}`} alt={`${props.movie?.title}`} />
                 <PlayIcon className='custom__icon fill-amber-400 border-none outline-none text-transparent absolute w-10 h-10 opacity-0' />
 
-                <div className='transition-all bg-black rounded-lg flex flex-col justify-start items-start absolute opacity-0 w-64 h-96 ml-16 mb-36'>
+                <div className='transition-all duration-200 bg-black rounded-lg flex flex-col justify-start items-start absolute opacity-0 w-64 h-96 ml-16 mb-36'>
                     <div className="flex flex-col gap-1 w-full justify-start absolute z-10 m-4">
                         <div className='flex flex-row justify-between items-center mr-8'>
                             <div className="flex flex-row gap-2 justify-start items-center">

@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { images } from '../../constants'
-import { RiFacebookFill, RiTwitterFill } from 'react-icons/ri'
+import { RiFacebookFill, RiTwitterFill, RiGithubFill } from 'react-icons/ri'
 import { FaInstagram, FaYoutube } from 'react-icons/fa'
 import "./Footer.css"
 
@@ -90,6 +90,7 @@ export const Footer: FC = () => {
                     <p className='text-white cursor-default'>© 2020 Filmaster. All rights reserved.</p>
                 </div>
                 <div className='flex flex-row mt-8 mb-8 justify-center items-center gap-4'>
+                    <a target='_blank' href="https://github.com/diegov05"><RiGithubFill className='custom__icon w-6 h-6 opacity-100 transition-all fill-white hover:fill-purple-600' /></a>
                     <RiFacebookFill className='custom__icon w-6 h-6 opacity-100 transition-all fill-white hover:fill-purple-600' />
                     <RiTwitterFill className='custom__icon w-6 h-6 opacity-100 transition-all fill-white hover:fill-purple-600' />
                     <FaInstagram className='custom__icon w-6 h-6 opacity-100 transition-all fill-white hover:fill-purple-600' />
