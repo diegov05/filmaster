@@ -1,19 +1,14 @@
 import { useState } from 'react'
 import './App.css'
-import { Header, Catalog, CatalogList, Footer } from './containers'
-import { NavBar } from './components'
+import { MainPage, Login } from "./pages"
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+
+  const [loggedIn, setLoggedIn] = useState(false)
 
   return (
     <>
-      <NavBar />
-      <Header />
-      <Catalog title='Movies' identifier="movies" />
-      <Catalog title='Series' identifier="series" />
-      <CatalogList />
-      <Footer />
+      {loggedIn ? <MainPage /> : <Login />}
     </>
   )
 }
