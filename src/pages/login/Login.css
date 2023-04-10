@@ -1,0 +1,5 @@
+input[type="email"]::placeholder,
+input[type="password"]::placeholder {
+    font-size: .8rem;
+    color: #636363;
+}
