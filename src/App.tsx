@@ -4,6 +4,7 @@ import './App.css'
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import { initializeApp } from 'firebase/app'
 import { config } from './config/config'
+import { AuthRoute } from './components'
 
 initializeApp(config.firebaseConfig)
 
@@ -15,7 +16,15 @@ const App: FC<AppProps> = (props) => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<MainPage />} />
+
+        <Route
+          path='/'
+          element={
+            <AuthRoute>
+              <MainPage />
+            </AuthRoute>}
+        />
+
         <Route path='/login' element={<Login />} />
       </Routes>
     </BrowserRouter>
