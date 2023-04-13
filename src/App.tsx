@@ -1,14 +1,13 @@
 import { useState } from 'react'
 import './App.css'
-import { MainPage, Login } from "./pages"
-
+import { MainPage, Login, SignUp } from "./pages"
 const App = () => {
 
   const [loggedIn, setLoggedIn] = useState(false)
 
   return (
     <>
-      {loggedIn ? <MainPage /> : <Login />}
+      {loggedIn ? <MainPage /> : <SignUp />}
     </>
   )
 }
