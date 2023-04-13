@@ -1,6 +1,5 @@
 import React, { FormEvent, useRef, useState } from 'react'
 import images from "../../assets"
-// import { useAuth } from '../contexts/AuthContext'
 import "./SignUp.css"
 export const SignUp = () => {
 
