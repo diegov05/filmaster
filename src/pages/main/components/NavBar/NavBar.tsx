@@ -3,6 +3,7 @@ import { MagnifyingGlassIcon, UserIcon, ChevronDownIcon, ChevronUpIcon, ArrowTop
 import { images } from '../../constants'
 import "./NavBar.css"
 import { getAuth, signOut } from 'firebase/auth'
+import { useNavigate } from 'react-router-dom'
 
 interface INavBarProps {
     authed: boolean
@@ -27,6 +28,7 @@ export const NavBar: FC<INavBarProps> = (props) => {
     ]
 
     const auth = getAuth()
+    const navigate = useNavigate()
 
     const [isOpen, setIsOpen] = useState(false)
 
@@ -70,10 +72,13 @@ export const NavBar: FC<INavBarProps> = (props) => {
                             </>)
                         : (
                             <>
-                                <a href="#" className='paragraph'>Sign In</a>
-                                <div className='app__wrapper-navbar_user-register'>
-                                    <button className='custom__button text-white font-semibold hover:opacity-90 hover:bg-purple-800 hover:border-transparent'>Register</button>
+                                <div className='flex flex-row gap-2 items-center justify-center'>
+                                    <a href="#" className='paragraph transition-all hover:text-zinc-200' onClick={async () => navigate('/login')}>Sign In</a>
+                                    <div className='app__wrapper-navbar_user-register'>
+                                        <button className='custom__button text-white font-semibold hover:opacity-90 hover:bg-purple-800 hover:border-transparent' onClick={async () => navigate('/signup')}>Register</button>
+                                    </div>
                                 </div>
+
                             </>)}
 
                 </div>
