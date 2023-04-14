@@ -66,7 +66,7 @@ export const Login = () => {
                             <p className='text-center paragraph text-xs'>New to Filmaster?</p>
                             <div className='h-[1px] w-1/4 bg-zinc-600'></div>
                         </div>
-                        <button className='w-full rounded-none bg-zinc-900 outline-none border-none py-4 px-4 uppercase text-zinc-700 hover:bg-amber-400 hover:text-black  custom__button'>Create Account</button>
+                        <button className='w-full rounded-none bg-zinc-900 outline-none border-none py-4 px-4 uppercase text-zinc-700 hover:bg-amber-400 hover:text-black  custom__button' onClick={() => { navigate('/signup') }}>Create Account</button>
                     </form>
                 </div>
             </div >

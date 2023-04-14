@@ -1,9 +1,10 @@
 import React, { FormEvent, useRef, useState } from 'react'
 import images from "../../assets"
 import "./SignUp.css"
+import { useNavigate } from 'react-router-dom'
 export const SignUp = () => {
 
-
+    const navigate = useNavigate()
 
     return (
 
@@ -27,7 +28,7 @@ export const SignUp = () => {
                             <div className='h-[1px] w-1/4 bg-zinc-600'></div>
                         </div>
 
-                        <button className='w-full rounded-none bg-zinc-900 outline-none border-none py-4 px-4 uppercase text-zinc-700 hover:bg-amber-400 hover:text-black  custom__button'>Login</button>
+                        <button className='w-full rounded-none bg-zinc-900 outline-none border-none py-4 px-4 uppercase text-zinc-700 hover:bg-amber-400 hover:text-black  custom__button' onClick={() => { navigate('/login') }}>Login</button>
                     </form>
                 </div>
             </div >
