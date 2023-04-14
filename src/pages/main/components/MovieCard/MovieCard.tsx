@@ -61,7 +61,7 @@ export const MovieCard: FC<Props> = (props) => {
                         <div className='flex flex-row justify-between items-center mr-8'>
                             <div className="flex flex-row gap-2 justify-start items-center">
                                 <h3 className='headtext text-xs max-w-[15ch]'>{props.movie?.title ? props.movie?.title : props.movie?.original_name}</h3>
-                                <button className='border-none bg-purple-600 text-white px-1 py-0 text-[.4rem] custom__button'>HD</button>
+                                <button className='border-none bg-purple-600 text-white px-1.5 py-0 text-[.4rem] custom__button'>HD</button>
                             </div>
                             <div className='transition-all hover:bg-amber-400 flex justify-center items-center border-solid border-x border-y border-amber-400 rounded-3xl w-6 h-6'>
                                 <BookmarkIcon className='custom__icon transition-all hover:text-white text-amber-400 fill-amber-400 w-4 h-4' />
