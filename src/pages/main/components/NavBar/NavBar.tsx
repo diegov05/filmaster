@@ -13,7 +13,8 @@ export const NavBar: FC<INavBarProps> = (props) => {
 
     const list: Array<Object> = [
         {
-            option: "Account"
+            option: "Account",
+            onClick: () => navigate('/user')
         },
         {
             option: "Profile"
