@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
 import images from "../../assets"
-import { getAuth, GoogleAuthProvider, signInAnonymously, signInWithPopup } from 'firebase/auth'
+import { fetchSignInMethodsForEmail, getAuth, GoogleAuthProvider, signInAnonymously, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
 import { FcGoogle } from 'react-icons/fc'
 import "./Login.css"
@@ -11,6 +11,9 @@ export const Login = () => {
     const navigate = useNavigate()
 
     const [authing, setAuthing] = useState(false)
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [error, setError] = useState<string | null>(null)
 
     const signInWithGoogle = async () => {
         setAuthing(true)
@@ -26,20 +29,23 @@ export const Login = () => {
             })
     }
 
-    // const signInAnonymously = async () => {
-    //     setAuthing(true)
-
-    //     signInAnonymously()
-    //         .then(() => {
-    //             console.log("anonymous user logged in.")
-    //             navigate('/')
-    //         })
-    //         .catch(error => {
-    //             console.log(error)
-    //             setAuthing(false)
-    //         })
-
-    // }
+    const handleLogin = async (e: React.FormEvent) => {
+        e.preventDefault()
+        try {
+            const methods = await fetchSignInMethodsForEmail(auth, email);
+            if (methods.length === 0) {
+                setError("User not found.")
+                return;
+            }
+            await signInWithEmailAndPassword(auth, email, password);
+            navigate('/')
+        } catch (error: any) {
+            if (error.code === 'auth/wrong-password') {
+                setError('Wrong password');
+            }
+            setError(error.message)
+        }
+    }
 
     return (
 
@@ -49,10 +55,11 @@ export const Login = () => {
                     <img className='w-80' src={images.logo} alt="logo" />
                 </div>
                 <div className='flex flex-col justify-start items-start mt-8 gap-4'>
-                    <form action="" className='flex flex-col justify-start items-start mt-8 gap-4'>
-                        <input className='flex justify-start items-center bg-zinc-900 text-white outline-none border-none px-4 py-2 w-[45ch]' placeholder='USERNAME' type="email" required />
-                        <input className='flex justify-start items-center bg-zinc-900 text-white outline-none border-none px-4 py-2 w-[45ch]' placeholder='PASSWORD' type="password" required />
+                    <form onSubmit={handleLogin} action="" className='flex flex-col justify-start items-start mt-8 gap-4'>
+                        <input className='flex justify-start items-center bg-zinc-900 text-white outline-none border-none px-4 py-2 w-[45ch]' placeholder='USERNAME' type="email" onChange={e => setEmail(e.target.value)} required />
+                        <input className='flex justify-start items-center bg-zinc-900 text-white outline-none border-none px-4 py-2 w-[45ch]' placeholder='PASSWORD' type="password" onChange={e => setPassword(e.target.value)} required />
                         <button disabled={authing} className='w-full rounded-none bg-violet-900 outline-none border-none py-4 px-4 uppercase text-white custom__button hover:opacity-90'>Log In</button>
+                        {error && <p className='capitalize paragraph text-xs text-red-500'>{error.slice(10,)}</p>}
                         <div className='w-full flex flex-row justify-between gap-2'>
                             <button onClick={() => signInWithGoogle()} disabled={authing} className='flex flex-row justify-between items-center w-full rounded-none bg-zinc-900 outline-none border-none py-2 px-4 uppercase text-xs text-zinc-500 custom__button hover:opacity-90 hover:bg-white hover:text-violet-900'><FcGoogle />Log In With Google</button>
                             <button onClick={() => {
