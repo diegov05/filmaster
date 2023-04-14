@@ -1,3 +1,7 @@
+.user-button:hover * {
+    color: white;
+}
+
 .dropdown button:hover h2 {
     color: white;
 }

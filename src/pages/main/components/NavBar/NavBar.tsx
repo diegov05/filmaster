@@ -48,13 +48,13 @@ export const NavBar: FC<INavBarProps> = (props) => {
                     {props.authed ?
                         (
                             <>
-                                <button onClick={() => setIsOpen((prevState) => !prevState)} className='flex flex-row cursor-pointer justify-between items-center gap-4 bg-white px-4 py-2 rounded-xl hover:opacity-90 transition-all'>
-                                    <UserIcon className='custom__icon text-zinc-600' />
+                                <button onClick={() => setIsOpen((prevState) => !prevState)} className='user-button flex flex-row cursor-pointer justify-between items-center gap-4 bg-white px-4 py-2 rounded-xl hover:bg-violet-900 transition-all'>
+                                    <UserIcon className='transition-all custom__icon text-zinc-600' />
                                     {!isOpen ? (
-                                        <ChevronDownIcon className='custom__icon text-zinc-600' />
+                                        <ChevronDownIcon className='transition-all custom__icon text-zinc-600' />
 
                                     ) : (
-                                        <ChevronUpIcon className='custom__icon text-zinc-600' />
+                                        <ChevronUpIcon className='transition-all custom__icon text-zinc-600' />
 
                                     )}
                                 </button>
