@@ -17,10 +17,12 @@ export const NavBar: FC<INavBarProps> = (props) => {
             onClick: () => navigate('/user')
         },
         {
-            option: "Profile"
+            option: "Profile",
+            onClick: () => navigate('/user')
         },
         {
-            option: "TMDB"
+            option: "TMDB",
+            onClick: () => navigate('/credits')
         },
         {
             option: "Sign Out",
