@@ -1,11 +1,15 @@
 import React, { FC, useEffect, useState } from 'react'
 import { movie, genre } from '../../containers'
-import { PlayIcon, BookmarkIcon } from '@heroicons/react/24/outline'
+import { PlayIcon, BookmarkIcon, CheckIcon } from '@heroicons/react/24/outline'
 import { requests } from '../../constants'
 import { key } from '../../constants/requests'
 import "./MovieCard.css"
 import { StarRating } from '../../components'
 import axios from 'axios'
+import { getAuth } from 'firebase/auth'
+import { getFirestore, doc, updateDoc, getDoc } from 'firebase/firestore';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/firestore';
 
 
 interface Props {
@@ -17,19 +21,55 @@ export const MovieCard: FC<Props> = (props) => {
     const [movieGenres, setMovieGenres] = useState([])
     const [seriesGenres, setSeriesGenres] = useState([])
     const [movieCrew, setMovieCrew] = useState([])
-    const [isPreviewVisible, setIsPreviewVisible] = useState(false)
-
-    const handleHover = () => {
-        setIsPreviewVisible(prevState => !prevState)
-    }
-
+    const [isFavorite, setIsFavorite] = useState(false);
+    const auth = getAuth()
+    const db = getFirestore()
     const movie = props.movie
-
     const index: number = movie?.genre_ids![0] ? movie?.genre_ids![0] : movie?.genre_ids![1];
     const genre: genre = movieGenres.find((genre: genre) => genre.id === index)! ? movieGenres.find((genre: genre) => genre.id === index)! : seriesGenres.find((genre: genre) => genre.id === index)!
 
     const movieCrewRequest = `https://api.themoviedb.org/3/movie/${props.movie?.id}/credits?api_key=${key}&language=en-US`
 
+
+    const handleToggleFavorite = async (movieId: number) => {
+        const user = auth.currentUser
+
+        if (!user) {
+            console.log('User is not logged in');
+            return;
+        }
+
+        try {
+            const userRef = doc(db, 'user', user.uid)
+
+            const userDoc = await getDoc(userRef)
+
+            if (userDoc.exists() && userDoc.data()?.favorites.includes(movieId)) {
+                setIsFavorite(true);
+            }
+
+            if (isFavorite) {
+                await updateDoc(userRef, {
+                    favorites: firebase.firestore.FieldValue.arrayRemove(movieId)
+                })
+                console.log("Movie removed from favorites.")
+                setIsFavorite(false)
+            } else {
+                await updateDoc(userRef, {
+                    favorites: firebase.firestore.FieldValue.arrayUnion(movieId)
+                })
+                console.log("Movie added to favorites.")
+                setIsFavorite(true)
+            }
+
+
+
+        } catch (error) {
+            console.log('Error adding movie to favorites', error);
+
+        }
+
+    };
 
 
     useEffect(() => {
@@ -50,6 +90,7 @@ export const MovieCard: FC<Props> = (props) => {
         })
     }, [])
 
+
     return (
         <>
             <div className='movie-card flex flex-col justify-center items-center gap-8 transition-all'>
@@ -63,9 +104,12 @@ export const MovieCard: FC<Props> = (props) => {
                                 <h3 className='headtext text-xs max-w-[15ch]'>{props.movie?.title ? props.movie?.title : props.movie?.original_name}</h3>
                                 <button className='border-none bg-purple-600 text-white px-1.5 py-0 text-[.4rem] custom__button'>HD</button>
                             </div>
-                            <div className='transition-all hover:bg-amber-400 flex justify-center items-center border-solid border-x border-y border-amber-400 rounded-3xl w-6 h-6'>
-                                <BookmarkIcon className='custom__icon transition-all hover:text-white text-amber-400 fill-amber-400 w-4 h-4' />
-                            </div>
+                            <button onClick={() => handleToggleFavorite(movie.id!)} className='transition-all hover:bg-amber-400 flex justify-center items-center border-solid border-x border-y border-amber-400 rounded-3xl w-6 h-6'>
+                                {isFavorite ?
+                                    <CheckIcon className='custom__icon transition-all  w-4 h-4' />
+                                    :
+                                    <BookmarkIcon className='custom__icon transition-all hover:text-white text-amber-400 fill-amber-400 w-4 h-4' />}
+                            </button>
                         </div>
                         <div className='flex flex-row gap-1'>
                             <StarRating initialValue={props.movie?.vote_average!} size={"xtrasmall"} id={React.useId()} />
