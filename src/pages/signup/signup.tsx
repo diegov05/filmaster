@@ -3,6 +3,7 @@ import images from "../../assets"
 import "./SignUp.css"
 import { useNavigate } from 'react-router-dom'
 import { createUserWithEmailAndPassword, fetchSignInMethodsForEmail, getAuth } from 'firebase/auth'
+import { getFirestore, doc, setDoc } from 'firebase/firestore'
 import { useAuthState } from 'react-firebase-hooks/auth'
 
 export const SignUp = () => {
@@ -15,6 +16,8 @@ export const SignUp = () => {
 
     const navigate = useNavigate()
 
+    const db = getFirestore()
+
     const handleSignup = async (e: React.FormEvent) => {
         e.preventDefault()
         try {
@@ -26,7 +29,14 @@ export const SignUp = () => {
                 if (password !== confirmPassword) {
                     alert("Passwords do not match.")
                 }
-                await createUserWithEmailAndPassword(auth, email, password)
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password)
+
+                const userRef = doc(db, 'user', userCredential.user.uid)
+                await setDoc(userRef, {
+                    id: userCredential.user.uid,
+                    email: userCredential.user.email
+                })
+                console.log('User added to Firestore');
                 navigate('/')
             }
         } catch (error) {

@@ -1,9 +1,10 @@
 import React, { useRef, useState } from 'react'
 import images from "../../assets"
-import { fetchSignInMethodsForEmail, getAuth, GoogleAuthProvider, signInAnonymously, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth'
+import { createUserWithEmailAndPassword, fetchSignInMethodsForEmail, getAuth, GoogleAuthProvider, signInAnonymously, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
 import { FcGoogle } from 'react-icons/fc'
 import "./Login.css"
+import { doc, getDoc, getFirestore, setDoc } from 'firebase/firestore'
 
 export const Login = () => {
 
@@ -18,9 +19,27 @@ export const Login = () => {
     const signInWithGoogle = async () => {
         setAuthing(true)
 
+        const db = getFirestore()
+
         signInWithPopup(auth, new GoogleAuthProvider())
-            .then(response => {
-                console.log(response.user.uid)
+            .then(async response => {
+                try {
+                    const userRef = doc(db, 'users', response.user.uid);
+                    const userDoc = await getDoc(userRef);
+
+                    if (userDoc.exists()) {
+                        console.log('User exists in Firestore');
+                    } else {
+                        const userRef = doc(db, 'user', auth.currentUser!.uid)
+                        await setDoc(userRef, {
+                            id: auth.currentUser!.uid,
+                            email: auth.currentUser!.email
+                        })
+                        console.log('User added to Firestore');
+                    }
+                } catch (error) {
+                    console.error('Error checking if user exists in Firestore', error);
+                }
                 navigate('/')
             })
             .catch(error => {
