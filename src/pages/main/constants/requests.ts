@@ -9,10 +9,10 @@ const requests = {
     trendingMoviesRequest: `https://api.themoviedb.org/3/trending/all/day?api_key=${key}`,
     moviesGenresRequest: `https://api.themoviedb.org/3/genre/movie/list?api_key=${key}&language=en-US`,
     seriesGenresRequest: `https://api.themoviedb.org/3/genre/tv/list?api_key=${key}&language=en-US`,
-    popularSeriesRequest: `https://api.themoviedb.org/3/tv/popular?api_key=${key}&language=en-US&page=1`,
-    trendingSeriesRequest: `https://api.themoviedb.org/3/tv/popular?api_key=${key}&language=en-US&page=2`,
-    topRatedSeriesRequest: `https://api.themoviedb.org/3/tv/top_rated?api_key=${key}&language=en-US&page=1`,
-    onAirSeriesRequest: `https://api.themoviedb.org/3/tv/on_the_air?api_key=${key}&language=en-US&page=1`,
+    popularSeriesRequest: `https://api.themoviedb.org/3/tv/popular?api_key=${key}&language=en-US&page=1&with_original_language=en`,
+    trendingSeriesRequest: `https://api.themoviedb.org/3/tv/popular?api_key=${key}&language=en-US&page=2&with_original_language=en`,
+    topRatedSeriesRequest: `https://api.themoviedb.org/3/tv/top_rated?api_key=${key}&language=en-US&page=1&with_original_language=en`,
+    onAirSeriesRequest: `https://api.themoviedb.org/3/tv/on_the_air?api_key=${key}&language=en-US&page=1&with_original_language=en|ja`,
 
 }
 
