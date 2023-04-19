@@ -78,7 +78,7 @@ export const Login = () => {
                         <input className='flex justify-start items-center bg-zinc-900 text-white outline-none border-none px-4 py-2 w-[45ch]' placeholder='USERNAME' type="email" onChange={e => setEmail(e.target.value)} required />
                         <input className='flex justify-start items-center bg-zinc-900 text-white outline-none border-none px-4 py-2 w-[45ch]' placeholder='PASSWORD' type="password" onChange={e => setPassword(e.target.value)} required />
                         <button disabled={authing} className='w-full rounded-none bg-violet-900 outline-none border-none py-4 px-4 uppercase text-white custom__button hover:opacity-90'>Log In</button>
-                        {error && <p className='capitalize paragraph text-xs text-red-500'>{error.slice(10,)}</p>}
+                        {error && <p className='capitalize paragraph text-xs text-red-500'>{error}</p>}
                         <div className='w-full flex flex-row justify-between gap-2'>
                             <button onClick={() => signInWithGoogle()} disabled={authing} className='flex flex-row justify-between items-center w-full rounded-none bg-zinc-900 outline-none border-none py-2 px-4 uppercase text-xs text-zinc-500 custom__button hover:opacity-90 hover:bg-white hover:text-violet-900'><FcGoogle />Log In With Google</button>
                             <button onClick={() => {

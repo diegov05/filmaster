@@ -1,5 +1,5 @@
+import { getAuth } from 'firebase/auth';
 import React from 'react';
-import { auth } from '../../../../App';
 
 export type IAccountProps = {
 
@@ -7,6 +7,7 @@ export type IAccountProps = {
 
 const Account: React.FC<IAccountProps> = ({ }) => {
 
+    const auth = getAuth()
 
     return (
         <div className='flex flex-row gap-4 justify-center items-center'>
