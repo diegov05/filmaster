@@ -16,20 +16,36 @@ interface Props {
     movie: movie
 }
 
+interface MovieDetails {
+    id: number;
+    title: string;
+    poster_path: string;
+    genres: { id: number; name: string }[];
+    credits: {
+        crew: { id: number; name: string; department: string }[];
+        cast: { id: number; name: string; character: string }[];
+    };
+}
+
+interface Person {
+    id: number;
+    name: string;
+}
+
 export const MovieCard: FC<Props> = (props) => {
 
     const [movieGenres, setMovieGenres] = useState([])
     const [seriesGenres, setSeriesGenres] = useState([])
-    const [movieCrew, setMovieCrew] = useState([])
+    const [movieDetails, setMovieDetails] = useState<MovieDetails | null>(null);
+
     const [isFavorite, setIsFavorite] = useState(false);
+
     const auth = getAuth()
     const db = getFirestore()
     const movie = props.movie
+
     const index: number = movie?.genre_ids![0] ? movie?.genre_ids![0] : movie?.genre_ids![1];
     const genre: genre = movieGenres.find((genre: genre) => genre.id === index)! ? movieGenres.find((genre: genre) => genre.id === index)! : seriesGenres.find((genre: genre) => genre.id === index)!
-
-    const movieCrewRequest = `https://api.themoviedb.org/3/movie/${props.movie?.id}/credits?api_key=${key}&language=en-US`
-
 
     const handleToggleFavorite = async (movieId: number) => {
         const user = auth.currentUser
@@ -71,12 +87,25 @@ export const MovieCard: FC<Props> = (props) => {
 
     };
 
-
     useEffect(() => {
-        axios.get(movieCrewRequest).then((response) => {
-            setMovieCrew(response.data)
-        })
-    }, [])
+        async function fetchMovieDetails() {
+            const response = await axios.get(
+                `https://api.themoviedb.org/3/movie/${movie.id}?api_key=${key}&append_to_response=credits`
+            );
+
+            setMovieDetails(response.data);
+        }
+
+        fetchMovieDetails();
+    }, [movie.id]);
+
+    const title = movieDetails?.title
+    const credits = movieDetails?.credits
+    const genres = movieDetails?.genres
+
+    const director = credits?.crew.find((person) => person.department === 'Directing');
+    const mainGenres = genres?.slice(0, 2);
+    const cast = credits?.cast.slice(0, 3);
 
     useEffect(() => {
         axios.get(requests.moviesGenresRequest).then((response) => {
@@ -120,9 +149,9 @@ export const MovieCard: FC<Props> = (props) => {
                         <p className='subtitle cursor-default text-start max-w-[25ch] text-sm'>
                             {props.movie?.overview?.slice(0, 200)}...
                         </p>
-                        <p className='text-white font-semibold cursor-default'>Director: <span className='subtitle cursor-default text-xs'></span></p>
-                        <p className='text-white font-semibold cursor-default'>Genres: <span className='subtitle cursor-default text-xs'></span></p>
-                        <p className='text-white font-semibold cursor-default'>Cast: <span className='subtitle cursor-default text-xs'></span></p>
+                        <p className='text-white font-semibold cursor-default'>Director: <span className='subtitle cursor-default text-xs'>{director?.name}</span></p>
+                        <p className='text-white font-semibold cursor-default'>Genres: <span className='subtitle cursor-default text-xs'>{mainGenres?.map((genre) => <span key={genre.id}>{genre.name} </span>)}</span></p>
+                        <p className='text-white font-semibold cursor-default'>Cast: <span className='subtitle cursor-default text-xs'>{cast?.map((person) => <p>{person.name} </p>)}</span></p>
                     </div>
                     <img className='transition-all opacity-50 blur-sm cursor-pointer rounded-3xl h-96 w-64 absolute' src={`https://image.tmdb.org/t/p/original${props.movie?.poster_path}`} alt={`${props.movie?.title}`} />
                 </div>
