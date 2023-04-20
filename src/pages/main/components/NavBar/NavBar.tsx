@@ -4,6 +4,7 @@ import { images } from '../../constants'
 import "./NavBar.css"
 import { getAuth, signOut } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
+import { SearchBar } from '../SearchBar/SearchBar'
 
 interface INavBarProps {
     authed: boolean
@@ -37,16 +38,14 @@ export const NavBar: FC<INavBarProps> = (props) => {
 
     return (
 
-        <div className='flex p-4 flex-col w-full h-80 justify-between absolute z-10'>
-            <div className='flex flex-row justify-between items-center'>
+        <div className='flex p-4 flex-col w-full h-80 justify-between absolute z-10 overflow-visible'>
+            <div className='flex flex-row justify-between items-center overflow-visible'>
                 <div className='flex flex-col items-center justify-center'>
                     <a href="#"><img src={images.logo} alt="logo" className='w-36' /></a>
                 </div>
-                <div className='flex flex-row items-center justify-center'>
-                    <form action="" className="relative mx-auto w-max">
-                        <input type="search"
-                            className=" peer cursor-pointer relative z-10 h-12 w-12 border-white bg-transparent pl-8 outline-none focus:w-full focus:cursor-text focus:border-white focus:pl-16 focus:pr-4 focus:border-b focus:border-solid text-white" />
-                        <MagnifyingGlassIcon className='absolute inset-y-0 my-auto custom__icon magnifying__icon' />
+                <div className='flex flex-row items-center justify-center overflow-visible'>
+                    <form action="" className="relative mx-auto w-max overflow-visible">
+                        <SearchBar />
                     </form>
                     {props.authed ?
                         (
