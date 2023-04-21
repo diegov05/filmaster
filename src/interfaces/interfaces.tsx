@@ -33,6 +33,7 @@ export interface Movie {
     }[];
     release_date: string;
     last_air_date: string;
+    first_air_date: string;
     media_type: string;
     revenue: number;
     runtime: number | null;

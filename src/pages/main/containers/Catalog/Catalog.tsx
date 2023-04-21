@@ -94,8 +94,6 @@ export const Catalog: FC<Props> = (props) => {
                 break;
         }
     }
-    console.log(shows[0])
-
     return (
         <div>
             <div className="flex flex-row justify-between m-8">
