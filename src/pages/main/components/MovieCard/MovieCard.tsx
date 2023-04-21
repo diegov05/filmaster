@@ -26,8 +26,19 @@ export const MovieCard: FC<Props> = (props) => {
 
     const [isFavorite, setIsFavorite] = useState(false);
 
+    const [isHovering, setIsHovering] = useState(false)
+
     const auth = getAuth()
     const db = getFirestore()
+
+    const handleMouseEnter = () => {
+        setIsHovering(true);
+        setTimeout(() => setIsHovering(false), 5000);
+    };
+
+    const handleMouseLeave = () => {
+        setIsHovering(false);
+    };
 
     const handleToggleFavorite = async (movieId: number) => {
         const user = auth.currentUser
@@ -102,6 +113,8 @@ export const MovieCard: FC<Props> = (props) => {
         return <div>Loading...</div>;
     }
 
+
+
     return (
         <>
             <Link
@@ -110,11 +123,11 @@ export const MovieCard: FC<Props> = (props) => {
                     search: `?mediatype=${mediaType}`,
                 }}
             >
-                <div className='movie-card flex flex-col justify-center items-center gap-8 transition-all'>
+                <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className='movie-card flex flex-col justify-center items-center gap-8 transition-all'>
                     <img className='transition-all duration-300 hover:opacity-50 cursor-pointer rounded-3xl h-96 w-64 mt-5' src={`https://image.tmdb.org/t/p/original${props.movie?.poster_path}`} alt={`${props.movie?.title}`} />
                     <PlayIcon className='custom__icon fill-amber-400 border-none outline-none text-transparent absolute w-10 h-10 opacity-0' />
 
-                    <div className='transition-all duration-200 bg-black rounded-lg flex flex-col justify-start items-start absolute opacity-0 w-64 h-96 ml-16 mb-36'>
+                    {isHovering && <div className='transition-all duration-300 bg-black rounded-lg flex flex-col justify-start items-start absolute opacity-0 w-64 h-96 ml-16 mb-36'>
                         <div className="flex flex-col gap-1 w-full justify-start absolute z-10 m-4">
                             <div className='flex flex-row justify-between items-center mr-8'>
                                 <div className="flex flex-row gap-2 justify-start items-center">
@@ -142,7 +155,7 @@ export const MovieCard: FC<Props> = (props) => {
                             <p className='text-white font-semibold cursor-default'>Cast: <span className='subtitle cursor-default text-xs'>{cast?.map((person) => <p key={person.id}>{person.name} </p>)}</span></p>
                         </div>
                         <img className='transition-all opacity-50 blur-sm cursor-pointer rounded-3xl h-96 w-64 absolute' src={`https://image.tmdb.org/t/p/original${props.movie?.poster_path}`} alt={`${props.movie?.title}`} />
-                    </div>
+                    </div>}
                     <h3 className='paragraph capitalize cursor-default mb-5'>{props.movie?.title ? props.movie?.title : props.movie?.name}</h3>
                 </div >
             </Link>
