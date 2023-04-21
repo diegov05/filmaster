@@ -54,7 +54,7 @@ export interface Movie {
             buy: Provider[];
         };
     };
-    reviews?: Review[]
+    reviews?: ReviewResults
 }
 
 export interface MovieDetails {
@@ -73,10 +73,6 @@ export interface Person {
     name: string;
 }
 
-export interface Person {
-    id: number;
-    name: string;
-}
 
 export interface Provider {
     provider_id: number;
@@ -92,6 +88,9 @@ export interface CastMember {
     profile_path: string | null;
 }
 
+export interface ReviewResults {
+    results: Review[]
+}
 export interface Review {
     author: string;
     author_details: {
@@ -105,4 +104,22 @@ export interface Review {
     updated_at: string;
     url: string;
     id: string;
+}
+
+export interface Configuration {
+    images: {
+        base_url: string;
+        secure_base_url: string;
+        backdrop_sizes: string[];
+        logo_sizes: string[];
+        poster_sizes: string[];
+        profile_sizes: string[];
+        still_sizes: string[];
+    };
+    change_keys: string[];
+}
+
+export interface AvatarSize {
+    size: string;
+    url: string;
 }
