@@ -1,6 +1,6 @@
 import React from 'react';
-import { Movie } from './SearchBar';
 import { Link } from 'react-router-dom';
+import { Movie } from '../../../../interfaces/interfaces';
 
 export type IMovieResultProps = {
     movie: Movie

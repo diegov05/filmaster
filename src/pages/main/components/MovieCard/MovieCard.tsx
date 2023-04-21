@@ -10,26 +10,10 @@ import { getAuth } from 'firebase/auth'
 import { getFirestore, doc, updateDoc, getDoc } from 'firebase/firestore';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
-
+import { MovieDetails } from '../../../../interfaces/interfaces'
 
 interface Props {
     movie: movie
-}
-
-interface MovieDetails {
-    id: number;
-    title: string;
-    poster_path: string;
-    genres: { id: number; name: string }[];
-    credits: {
-        crew: { id: number; name: string; department: string }[];
-        cast: { id: number; name: string; character: string }[];
-    };
-}
-
-interface Person {
-    id: number;
-    name: string;
 }
 
 export const MovieCard: FC<Props> = (props) => {
