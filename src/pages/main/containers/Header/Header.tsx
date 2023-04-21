@@ -7,11 +7,14 @@ import axios from 'axios'
 import "./Header.css"
 import { Movie, MovieDetails } from '../../../../interfaces/interfaces'
 import { key } from '../../constants/requests'
+import { Link } from 'react-router-dom'
 
 export const Header: FC = () => {
     const [movieId, setMovieId] = useState<number | null>(null);
     const [movieDetails, setMovieDetails] = useState<MovieDetails | null>(null);
     const [movie, setMovie] = useState<Movie | null>(null);
+
+    const mediaType = movie?.name ? "tv" : "movie"
 
     useEffect(() => {
         async function fetchData() {
@@ -53,10 +56,16 @@ export const Header: FC = () => {
                                 <div className='transition-all hover:bg-amber-400 flex justify-center items-center border-solid border-x border-y border-amber-400 rounded-3xl w-9 h-9'>
                                     <BookmarkIcon className='custom__icon transition-all hover:text-white text-amber-400 fill-amber-400 w-7 h-7' />
                                 </div>
-
-                                <div className='transition-all hover:bg-purple-600 hover:border-purple-600 flex justify-center items-center border-solid border-purple-600 border-x border-y bg-transparent rounded-3xl w-9 h-9 '>
-                                    <PlayIcon className='transition-all hover:text-white text-purple-600 fill-purple-600 custom__icon w-7 h-7' />
-                                </div>
+                                <Link
+                                    to={{
+                                        pathname: `/movie/${movie?.id}`,
+                                        search: `?mediatype=${mediaType}`,
+                                    }}
+                                >
+                                    <div className='transition-all hover:bg-purple-600 hover:border-purple-600 flex justify-center items-center border-solid border-purple-600 border-x border-y bg-transparent rounded-3xl w-9 h-9 '>
+                                        <PlayIcon className='transition-all hover:text-white text-purple-600 fill-purple-600 custom__icon w-7 h-7' />
+                                    </div>
+                                </Link>
                             </div>
                         </div>
                         <div className='flex m-0 p-0 justify-start items-center gap-4'>
