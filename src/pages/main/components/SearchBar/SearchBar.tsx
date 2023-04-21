@@ -34,10 +34,6 @@ export const SearchBar = () => {
         }
     }
 
-    const handleClick = (movieId: number, mediaType: string) => {
-        navigate(`/movie/${movieId}`, { state: { mediaType } });
-    }
-
     return (
         <div>
             <input type="search"

@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState } from 'react'
 import axios from 'axios'
 import { requests } from '../../constants'
 import { MovieCard } from '../../components'
-import { movie } from '../../containers'
+import { Movie } from '../../../../interfaces/interfaces'
 
 import "./Catalog.css"
 
@@ -13,14 +13,13 @@ interface Props {
 
 export const Catalog: FC<Props> = (props) => {
 
-    const [shows, setShows] = useState([])
+    const [shows, setShows] = useState<Movie[]>([])
 
     const [trendingShows, setTrendingShows] = useState([])
     const [recentShows, setRecentShows] = useState([])
     const [topShows, setTopShows] = useState([])
 
     const [isPressed, setIsPressed] = useState(true)
-    // const [selectedId, setSelectedId] = useState(0)
 
     useEffect(() => {
         switch (props.identifier) {
@@ -95,6 +94,7 @@ export const Catalog: FC<Props> = (props) => {
                 break;
         }
     }
+    console.log(shows[0])
 
     return (
         <div>
@@ -110,13 +110,13 @@ export const Catalog: FC<Props> = (props) => {
                 </div>
             </div>
             <div className='flex flex-row flex-wrap justify-center items-center gap-8'>
-                {isPressed ? shows.slice(0, 10).map((movie: movie) => (
+                {isPressed ? shows.slice(0, 10).map((movie: Movie) => (
                     <div className='flex-1 basis-1/6' key={movie?.id}>
-                        <MovieCard movie={movie} key={movie?.id} />
+                        <MovieCard movie={movie} mediaType={movie.name ? "tv" : "movie"} key={movie?.id} />
                     </div>
-                )) : shows.slice(0, 15).map((movie: movie) => (
+                )) : shows.slice(0, 15).map((movie: Movie) => (
                     <div className='flex-1 basis-1/6' key={movie?.id}>
-                        <MovieCard movie={movie} key={movie?.id} />
+                        <MovieCard movie={movie} mediaType={movie.name ? "tv" : "movie"} key={movie?.id} />
                     </div>
                 ))}
             </div>
