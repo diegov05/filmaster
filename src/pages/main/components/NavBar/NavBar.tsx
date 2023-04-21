@@ -41,7 +41,7 @@ export const NavBar: FC<INavBarProps> = (props) => {
         <div className='flex p-4 flex-col w-full h-80 justify-between absolute z-10 overflow-visible'>
             <div className='flex flex-row justify-between items-center overflow-visible'>
                 <div className='flex flex-col items-center justify-center'>
-                    <a href="#"><img src={images.logo} alt="logo" className='w-36' /></a>
+                    <a onClick={() => navigate('/')} href="#"><img src={images.logo} alt="logo" className='w-36' /></a>
                 </div>
                 <div className='flex flex-row items-center justify-center overflow-visible'>
                     <form action="" className="relative mx-auto w-max overflow-visible">
