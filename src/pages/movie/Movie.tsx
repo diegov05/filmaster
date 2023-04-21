@@ -40,7 +40,7 @@ const Movie: React.FC<IMovieProps> = (props) => {
     }, [movieId]);
 
     useEffect(() => {
-        axios.get(`https://api.themoviedb.org/3/movie/${id}/videos?api_key=${key}&language=en-US`)
+        axios.get(`https://api.themoviedb.org/3/${mediaType}/${id}/videos?api_key=${key}&language=en-US`)
             .then(response => {
                 const videos = response.data.results.filter((video: any) => video.type === 'Trailer');
                 if (videos.length > 0) {
@@ -53,7 +53,7 @@ const Movie: React.FC<IMovieProps> = (props) => {
     useEffect(() => {
         async function fetchMovieDetails() {
             const response = await axios.get(
-                `https://api.themoviedb.org/3/movie/${movie?.id}?api_key=${key}&append_to_response=credits`
+                `https://api.themoviedb.org/3/${mediaType}/${movie?.id}?api_key=${key}&append_to_response=credits`
             );
 
             setMovieDetails(response.data);
@@ -110,8 +110,8 @@ const Movie: React.FC<IMovieProps> = (props) => {
                     <div className='flex flex-col justify-start items-start gap-4'>
                         <img className="w-[30rem]" src={`https://image.tmdb.org/t/p/original${movie.poster_path}`} alt={`${movie.title}`} />
                         <div className='flex flex-row gap-2'>
-                            {movie.genres.map(genre => <button key={genre.id
-                            } className='custom__button headtext font-bold transition-all text-xs hover:bg-amber-400 hover:text-black hover:border-amber-400'>{genre.name}</button>)}
+                            {movie.genres.slice(0, 3).map(genre => <button key={genre.id
+                            } className='custom__button flex justify-center items-center headtext font-bold transition-all text-xs hover:bg-amber-400 hover:text-black hover:border-amber-400'>{genre.name}</button>)}
                         </div>
                     </div>
                     <div className='w-full flex flex-col gap-4'>
