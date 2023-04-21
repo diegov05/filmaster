@@ -123,3 +123,6 @@ export interface AvatarSize {
     size: string;
     url: string;
 }
+export interface LocationState {
+    mediaType: string;
+}

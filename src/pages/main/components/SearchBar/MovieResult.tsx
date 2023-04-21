@@ -4,14 +4,21 @@ import { Movie } from '../../../../interfaces/interfaces';
 
 export type IMovieResultProps = {
     movie: Movie
+    mediaType: string
 }
 
 const MovieResult: React.FC<IMovieResultProps> = (props) => {
 
     const movie = props.movie
+    const mediaType = props.mediaType
 
     return (
-        <Link to={`/movie/${movie.id}`}>
+        <Link
+            to={{
+                pathname: `/movie/${movie.id}`,
+                search: `?mediatype=${mediaType}`,
+            }}
+        >
             <div className='z-50 p-4 flex flex-row justify-start items-start gap-4 border-b border-zinc-600 hover:bg-black cursor-pointer transition-all' key={movie.id}>
                 < img className='w-12' src={`https://image.tmdb.org/t/p/w154/${movie.poster_path}`} alt={movie.title} />
                 <div className='flex flex-col gap-2'>

@@ -34,8 +34,8 @@ export const SearchBar = () => {
         }
     }
 
-    const handleClick = (movieId: number) => {
-        navigate(`/movie/${movieId}`)
+    const handleClick = (movieId: number, mediaType: string) => {
+        navigate(`/movie/${movieId}`, { state: { mediaType } });
     }
 
     return (
@@ -46,8 +46,7 @@ export const SearchBar = () => {
 
             {results.length > 0 && (
                 <div className='scrollbar mt-2 bg-zinc-800 rounded-xl first-letter: h-96 w-full z-50 absolute'>
-                    {results.map((movie) => < MovieResult movie={movie
-                    } />)}
+                    {results.map((movie) => <MovieResult movie={movie} mediaType={movie.media_type} />)}
                 </div>
             )
             }
