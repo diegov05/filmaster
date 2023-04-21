@@ -86,7 +86,7 @@ const Movie: React.FC<IMovieProps> = (props) => {
                 <NavBar authed={auth.currentUser?.isAnonymous ? false : true} />
             </div>
 
-            <div className=' absolute w-full z-10 mt-6 p-4'>
+            <div className='flex flex-col gap-2 absolute w-full z-10 mt-6 p-4'>
                 <div className='flex flex-row justify-between items-center w-full'>
                     <h1 className='text-3xl w-[30ch] text-white headtext'>{movie.title}</h1>
                     <div className='flex flex-row gap-4'>
@@ -130,7 +130,7 @@ const Movie: React.FC<IMovieProps> = (props) => {
                         <p className='paragraph text-lg font-normal'>{movie.overview}</p>
                     </div>
                 </div>
-                <div className='flex flex-row w-full mt-8 justify-start gap-8 border-t border-zinc-500 pt-16'>
+                <div className='flex flex-row w-full mt-8 justify-start gap-8 border-t border-zinc-500 pt-8'>
                     <div className='flex flex-col gap-2'>
                         <h1 className='subtitle text-xl uppercase tracking-widest'>Where to Watch</h1>
                         {sortedProviders?.map((provider: Provider) => (
