@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from 'react'
-import { MainPage, Login, SignUp, User } from "./pages"
+import { MainPage, Login, SignUp, User, Movie } from "./pages"
 import './App.css'
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import { initializeApp } from 'firebase/app'
@@ -43,6 +43,7 @@ const App: FC<AppProps> = (props) => {
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<SignUp />} />
         <Route path='/user' element={<User user={auth.currentUser!} />} />
+        <Route path='/movie/:id' element={<Movie />} />
       </Routes>
     </BrowserRouter>
   )
