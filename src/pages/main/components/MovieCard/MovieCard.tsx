@@ -67,7 +67,7 @@ export const MovieCard: FC<Props> = (props) => {
         fetchMovieDetails()
     }, [props.movie.id]);
 
-    const addToFavorites = (movieId: string | undefined) => {
+    const addToFavorites = (movieId: string | undefined, mediaType: string | null) => {
         const userId = auth.currentUser?.uid;
         const userFavoritesRef = doc(collection(getFirestore(), 'user'), userId);
 
@@ -75,13 +75,13 @@ export const MovieCard: FC<Props> = (props) => {
             return <div>...</div>
         }
 
-        if (userFavorites?.includes(movieId)) {
+        if (userFavorites?.includes(`${movieId} ${mediaType}`)) {
             updateDoc(userFavoritesRef, {
-                favorites: arrayRemove(movieId),
+                favorites: arrayRemove(`${movieId} ${mediaType}`),
             });
         } else {
             updateDoc(userFavoritesRef, {
-                favorites: arrayUnion(movieId),
+                favorites: arrayUnion(`${movieId} ${mediaType}`),
             });
         }
     }
@@ -116,8 +116,8 @@ export const MovieCard: FC<Props> = (props) => {
                                     <h3 className='headtext text-xs max-w-[15ch]'>{props.movie?.title ? props.movie?.title : props.movie?.name}</h3>
                                     <button className='border-none bg-purple-600 text-white px-1.5 py-0 text-[.4rem] custom__button'>HD</button>
                                 </div>
-                                <button className='transition-all hover:bg-amber-400 flex justify-center items-center border-solid border-x border-y border-amber-400 rounded-3xl w-6 h-6'>
-                                    {userFavorites?.includes(movie!.id.toString()) ? <CheckIcon className='custom__icon transition-all hover:text-white text-amber-40 w-4 h-4' /> : <BookmarkIcon className='custom__icon transition-all hover:text-white text-amber-400 fill-amber-400 w-4 h-4' />}
+                                <button onClick={() => addToFavorites(movie.id.toString(), mediaType)} className='transition-all hover:bg-amber-400 flex justify-center items-center border-solid border-x border-y border-amber-400 rounded-3xl w-6 h-6'>
+                                    {userFavorites?.includes(`${movie?.id} ${mediaType}`) ? <CheckIcon className='custom__icon transition-all hover:text-white text-amber-40 w-4 h-4' /> : <BookmarkIcon className='custom__icon transition-all hover:text-white text-amber-400 fill-amber-400 w-4 h-4' />}
                                 </button>
                             </div>
                             <div className='flex flex-row gap-1'>
