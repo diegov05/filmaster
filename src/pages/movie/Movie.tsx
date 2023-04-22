@@ -5,11 +5,11 @@ import { getAuth } from 'firebase/auth';
 import { useParams, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { key } from '../main/constants/requests';
-import { StarIcon, ChevronDoubleUpIcon, ChevronDoubleDownIcon } from '@heroicons/react/24/outline';
+import { StarIcon, ChevronDoubleUpIcon, ChevronDoubleDownIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
 import { Movie, MovieDetails, Provider, RatingMovieData, UserFavorites } from '../../interfaces/interfaces';
 import { options } from './apiData';
 import { FaImdb } from 'react-icons/fa';
-import { arrayUnion, collection, doc, getFirestore, onSnapshot, updateDoc } from 'firebase/firestore';
+import { arrayRemove, arrayUnion, collection, doc, getFirestore, onSnapshot, updateDoc } from 'firebase/firestore';
 
 
 export type IMovieProps = {
@@ -61,7 +61,7 @@ const Movie: React.FC<IMovieProps> = (props) => {
                 });
 
                 const userId = auth.currentUser?.uid;
-                const userFavoritesRef = doc(collection(getFirestore(), 'favorites'), userId);
+                const userFavoritesRef = doc(collection(getFirestore(), 'user'), userId);
 
                 onSnapshot(userFavoritesRef, (snapshot) => {
                     const userFavoritesData = snapshot.data() as UserFavorites;
@@ -122,11 +122,21 @@ const Movie: React.FC<IMovieProps> = (props) => {
 
     const addToFavorites = (movieId: string | undefined) => {
         const userId = auth.currentUser?.uid;
-        const userFavoritesRef = doc(collection(getFirestore(), 'favorites'), userId);
+        const userFavoritesRef = doc(collection(getFirestore(), 'user'), userId);
 
-        updateDoc(userFavoritesRef, {
-            favorites: arrayUnion(movieId),
-        });
+        if (!movieId) {
+            return <div>...</div>
+        }
+
+        if (userFavorites?.includes(movieId)) {
+            updateDoc(userFavoritesRef, {
+                favorites: arrayRemove(movieId),
+            });
+        } else {
+            updateDoc(userFavoritesRef, {
+                favorites: arrayUnion(movieId),
+            });
+        }
     }
 
     return (
@@ -194,7 +204,14 @@ const Movie: React.FC<IMovieProps> = (props) => {
                                 </div>
                             </div>
                         </div>
-                        <button onClick={() => addToFavorites(id)} className='w-52 custom__button headtext uppercase rounded-none outline-0 border-0 bg-amber-400 text-black py-4 hover:bg-zinc-900 hover:text-amber-400'>Add to Favorites</button>
+                        <button onClick={() => addToFavorites(id)} className={`flex flex-col justify-center items-center w-max custom__button headtext uppercase rounded-none outline-0 border-0 py-4 px-8 text-black hover:text-amber-400
+                         ${userFavorites?.includes(movie.id.toString())
+                                ? "bg-zinc-800 hover:bg-amber-400" :
+                                "bg-amber-400 hover:bg-zinc-800"}         
+                        `}
+                        >{userFavorites?.includes(movie.id.toString()) ? <CheckCircleIcon className={`w-5 h-5 ${userFavorites?.includes(movie.id.toString())
+                            ? "text-amber-400" :
+                            "text-black"} `} /> : "Add to Favorites"}</button>
                     </div>
                 </div>
                 <div className='flex flex-row w-full mt-8 justify-start gap-8 border-t border-zinc-500 pt-8'>
