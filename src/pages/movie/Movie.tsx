@@ -17,6 +17,8 @@ export type IMovieProps = {
 
 const Movie: React.FC<IMovieProps> = (props) => {
 
+    const [index, setIndex] = useState<string | undefined>();
+
     const [movie, setMovie] = useState<Movie | null>(null)
 
     const [movieDetails, setMovieDetails] = useState<MovieDetails | null>(null)
@@ -120,7 +122,7 @@ const Movie: React.FC<IMovieProps> = (props) => {
         (a, b) => a.display_priority - b.display_priority
     ) : null;
 
-    const addToFavorites = (movieId: string | undefined) => {
+    const addToFavorites = (movieId: string | undefined, mediaType: string | null) => {
         const userId = auth.currentUser?.uid;
         const userFavoritesRef = doc(collection(getFirestore(), 'user'), userId);
 
@@ -128,16 +130,17 @@ const Movie: React.FC<IMovieProps> = (props) => {
             return <div>...</div>
         }
 
-        if (userFavorites?.includes(movieId)) {
+        if (userFavorites?.includes(`${movieId} ${mediaType}`)) {
             updateDoc(userFavoritesRef, {
-                favorites: arrayRemove(movieId),
+                favorites: arrayRemove(`${movieId} ${mediaType}`),
             });
         } else {
             updateDoc(userFavoritesRef, {
-                favorites: arrayUnion(movieId),
+                favorites: arrayUnion(`${movieId} ${mediaType}`),
             });
         }
     }
+
 
     return (
         <div>
@@ -204,12 +207,12 @@ const Movie: React.FC<IMovieProps> = (props) => {
                                 </div>
                             </div>
                         </div>
-                        <button onClick={() => addToFavorites(id)} className={`flex flex-col justify-center items-center w-max custom__button headtext uppercase rounded-none outline-0 border-0 py-4 px-8 text-black hover:text-amber-400
-                         ${userFavorites?.includes(movie.id.toString())
+                        <button onClick={() => addToFavorites(id, mediaType)} className={`flex flex-col justify-center items-center w-max custom__button headtext uppercase rounded-none outline-0 border-0 py-4 px-8 text-black hover:text-amber-400
+                         ${userFavorites?.includes(`${movie.id} ${mediaType}`)
                                 ? "bg-zinc-800 hover:bg-amber-400" :
                                 "bg-amber-400 hover:bg-zinc-800"}         
                         `}
-                        >{userFavorites?.includes(movie.id.toString()) ? <CheckCircleIcon className={`w-5 h-5 ${userFavorites?.includes(movie.id.toString())
+                        >{userFavorites?.includes(`${movie.id} ${mediaType}`) ? <CheckCircleIcon className={`w-5 h-5 ${userFavorites?.includes(`${movie.id} ${mediaType}`)
                             ? "text-amber-400" :
                             "text-black"} `} /> : "Add to Favorites"}</button>
                     </div>
