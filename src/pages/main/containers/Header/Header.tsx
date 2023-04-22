@@ -1,18 +1,24 @@
 import React, { FC, useEffect, useState } from 'react'
-import { BookmarkIcon, PlayIcon } from '@heroicons/react/24/outline'
+import { BookmarkIcon, PlayIcon, CheckIcon } from '@heroicons/react/24/outline'
 import { requests } from '../../constants'
 import { StarRating } from '../../components'
 import { useId } from 'react'
 import axios from 'axios'
 import "./Header.css"
-import { Movie, MovieDetails } from '../../../../interfaces/interfaces'
+import { Movie, MovieDetails, UserFavorites } from '../../../../interfaces/interfaces'
 import { key } from '../../constants/requests'
 import { Link } from 'react-router-dom'
+import { getAuth } from 'firebase/auth'
+import { arrayRemove, arrayUnion, collection, doc, getFirestore, onSnapshot, updateDoc } from 'firebase/firestore'
 
 export const Header: FC = () => {
     const [movieId, setMovieId] = useState<number | null>(null);
     const [movieDetails, setMovieDetails] = useState<MovieDetails | null>(null);
     const [movie, setMovie] = useState<Movie | null>(null);
+    const [userFavorites, setUserFavorites] = useState<string[]>()
+
+
+    const auth = getAuth()
 
     const mediaType = movie?.name ? "tv" : "movie"
 
@@ -35,12 +41,40 @@ export const Header: FC = () => {
                 const movieData = await movieResponse.json();
                 setMovieDetails(movieData);
                 setMovie(movieData)
+
+                const userId = auth.currentUser?.uid;
+                const userFavoritesRef = doc(collection(getFirestore(), 'user'), userId);
+
+                onSnapshot(userFavoritesRef, (snapshot) => {
+                    const userFavoritesData = snapshot.data() as UserFavorites;
+                    setUserFavorites(userFavoritesData.favorites);
+                });
+
             } catch (error) {
                 console.error(error);
             }
         }
         fetchData();
     }, []);
+
+    const addToFavorites = (movieId: string | undefined) => {
+        const userId = auth.currentUser?.uid;
+        const userFavoritesRef = doc(collection(getFirestore(), 'user'), userId);
+
+        if (!movieId) {
+            return <div>...</div>
+        }
+
+        if (userFavorites?.includes(movieId)) {
+            updateDoc(userFavoritesRef, {
+                favorites: arrayRemove(movieId),
+            });
+        } else {
+            updateDoc(userFavoritesRef, {
+                favorites: arrayUnion(movieId),
+            });
+        }
+    }
 
     return (
         <>
@@ -53,8 +87,8 @@ export const Header: FC = () => {
                         <div className='flex gap-4 mt-4'>
                             <StarRating initialValue={movie?.vote_average!} size='xl' id={useId()} />
                             <div className='flex gap-2'>
-                                <div className='transition-all hover:bg-amber-400 flex justify-center items-center border-solid border-x border-y border-amber-400 rounded-3xl w-9 h-9'>
-                                    <BookmarkIcon className='custom__icon transition-all hover:text-white text-amber-400 fill-amber-400 w-7 h-7' />
+                                <div onClick={() => addToFavorites(movie?.id.toString())} className='transition-all hover:bg-amber-400 flex justify-center items-center border-solid border-x border-y border-amber-400 rounded-3xl w-9 h-9'>
+                                    {userFavorites?.includes(movie!.id.toString()) ? <CheckIcon className='custom__icon transition-all hover:text-white text-amber-40 w-7 h-7' /> : <BookmarkIcon className='custom__icon transition-all hover:text-white text-amber-400 fill-amber-400 w-7 h-7' />}
                                 </div>
                                 <Link
                                     to={{
