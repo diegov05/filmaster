@@ -6,23 +6,16 @@ import { useParams, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { key } from '../main/constants/requests';
 import { StarIcon, ChevronDoubleUpIcon, ChevronDoubleDownIcon } from '@heroicons/react/24/outline';
-import { Movie, MovieDetails, Provider, Review, LocationState, RatingMovieData } from '../../interfaces/interfaces';
+import { Movie, MovieDetails, Provider, RatingMovieData, UserFavorites } from '../../interfaces/interfaces';
 import { options } from './apiData';
 import { FaImdb } from 'react-icons/fa';
+import { arrayUnion, collection, doc, getFirestore, onSnapshot, updateDoc } from 'firebase/firestore';
 
 
 export type IMovieProps = {
 }
 
 const Movie: React.FC<IMovieProps> = (props) => {
-
-    const movieId = useParams();
-
-    const location = useLocation();
-    const searchParams = new URLSearchParams(location.search);
-    const mediaType = searchParams.get('mediatype');
-
-    const id = movieId.id
 
     const [movie, setMovie] = useState<Movie | null>(null)
 
@@ -32,6 +25,13 @@ const Movie: React.FC<IMovieProps> = (props) => {
 
     const [ratingMovieData, setRatingMovieData] = useState<RatingMovieData | null>(null);
 
+    const [userFavorites, setUserFavorites] = useState<number[]>()
+
+    const movieId = useParams();
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const mediaType = searchParams.get('mediatype');
+    const id = movieId.id
     const auth = getAuth()
 
     useEffect(() => {
@@ -55,12 +55,19 @@ const Movie: React.FC<IMovieProps> = (props) => {
                 };
 
                 await axios.request(options).then(function (response) {
-                    console.log(options)
-                    console.log(response)
                     setRatingMovieData(response.data)
                 }).catch(function (error) {
                     console.error(error);
                 });
+
+                const userId = auth.currentUser?.uid;
+                const userFavoritesRef = doc(collection(getFirestore(), 'favorites'), userId);
+
+                onSnapshot(userFavoritesRef, (snapshot) => {
+                    const userFavoritesData = snapshot.data() as UserFavorites;
+                    setUserFavorites(userFavoritesData.favorites);
+                });
+
             } catch (error) {
                 console.error(error)
             }
@@ -112,6 +119,15 @@ const Movie: React.FC<IMovieProps> = (props) => {
     const sortedProviders = streamingProviders !== null ? [...streamingProviders].sort(
         (a, b) => a.display_priority - b.display_priority
     ) : null;
+
+    const addToFavorites = (movieId: string | undefined) => {
+        const userId = auth.currentUser?.uid;
+        const userFavoritesRef = doc(collection(getFirestore(), 'favorites'), userId);
+
+        updateDoc(userFavoritesRef, {
+            favorites: arrayUnion(movieId),
+        });
+    }
 
     return (
         <div>
@@ -175,11 +191,10 @@ const Movie: React.FC<IMovieProps> = (props) => {
                                 </div>
                                 <div className='flex p-2 flex-col'>
                                     <span className='headtext'>Metascore</span>
-
                                 </div>
                             </div>
                         </div>
-                        <button className='w-52 custom__button headtext uppercase rounded-none outline-0 border-0 bg-amber-400 text-black py-4'>Add to Favorites</button>
+                        <button onClick={() => addToFavorites(id)} className='w-52 custom__button headtext uppercase rounded-none outline-0 border-0 bg-amber-400 text-black py-4 hover:bg-zinc-900 hover:text-amber-400'>Add to Favorites</button>
                     </div>
                 </div>
                 <div className='flex flex-row w-full mt-8 justify-start gap-8 border-t border-zinc-500 pt-8'>
