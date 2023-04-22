@@ -1,17 +1,14 @@
 import React, { FC, useEffect, useState } from 'react'
-import { movie, genre } from '../../containers'
 import { PlayIcon, BookmarkIcon, CheckIcon } from '@heroicons/react/24/outline'
-import { requests } from '../../constants'
 import { key } from '../../constants/requests'
 import "./MovieCard.css"
 import { StarRating } from '../../components'
 import axios from 'axios'
 import { getAuth } from 'firebase/auth'
-import { getFirestore, doc, updateDoc, getDoc } from 'firebase/firestore';
-import firebase from 'firebase/compat/app';
+import { arrayRemove, arrayUnion, collection, doc, getFirestore, onSnapshot, updateDoc } from 'firebase/firestore'
 import 'firebase/compat/firestore';
-import { Movie, MovieDetails } from '../../../../interfaces/interfaces'
-import { Link, useLocation } from 'react-router-dom'
+import { Movie, MovieDetails, UserFavorites } from '../../../../interfaces/interfaces'
+import { Link } from 'react-router-dom'
 
 interface Props {
     movie: Movie
@@ -28,6 +25,8 @@ export const MovieCard: FC<Props> = (props) => {
 
     const [isHovering, setIsHovering] = useState(false)
 
+    const [userFavorites, setUserFavorites] = useState<string[]>()
+
     const auth = getAuth()
     const db = getFirestore()
 
@@ -40,46 +39,6 @@ export const MovieCard: FC<Props> = (props) => {
         setIsHovering(false);
     };
 
-    const handleToggleFavorite = async (movieId: number) => {
-        const user = auth.currentUser
-
-        if (!user) {
-            console.log('User is not logged in');
-            return;
-        }
-
-        try {
-            const userRef = doc(db, 'user', user.uid)
-
-            const userDoc = await getDoc(userRef)
-
-            if (userDoc.exists() && userDoc.data()?.favorites.includes(movieId)) {
-                setIsFavorite(true);
-            }
-
-            if (isFavorite) {
-                await updateDoc(userRef, {
-                    favorites: firebase.firestore.FieldValue.arrayRemove(movieId)
-                })
-                console.log("Movie removed from favorites.")
-                setIsFavorite(false)
-            } else {
-                await updateDoc(userRef, {
-                    favorites: firebase.firestore.FieldValue.arrayUnion(movieId)
-                })
-                console.log("Movie added to favorites.")
-                setIsFavorite(true)
-            }
-
-
-
-        } catch (error) {
-            console.log('Error adding movie to favorites', error);
-
-        }
-
-    };
-
     useEffect(() => {
         async function fetchMovie() {
             const response = await fetch(`https://api.themoviedb.org/3/${props.mediaType}/${props.movie.id}?api_key=${key}&append_to_response=watch/providers,reviews`);
@@ -87,20 +46,45 @@ export const MovieCard: FC<Props> = (props) => {
             setMovie(data);
         }
 
-        fetchMovie();
-    }, [props.movie.id]);
+        const userId = auth.currentUser?.uid;
+        const userFavoritesRef = doc(collection(getFirestore(), 'user'), userId);
 
-    useEffect(() => {
+        onSnapshot(userFavoritesRef, (snapshot) => {
+            const userFavoritesData = snapshot.data() as UserFavorites;
+            setUserFavorites(userFavoritesData.favorites);
+        });
+
         async function fetchMovieDetails() {
             const response = await axios.get(
                 `https://api.themoviedb.org/3/movie/${props.movie.id}?api_key=${key}&append_to_response=credits`
             );
-
             setMovieDetails(response.data);
         }
 
         fetchMovieDetails();
+
+        fetchMovie();
+        fetchMovieDetails()
     }, [props.movie.id]);
+
+    const addToFavorites = (movieId: string | undefined) => {
+        const userId = auth.currentUser?.uid;
+        const userFavoritesRef = doc(collection(getFirestore(), 'user'), userId);
+
+        if (!movieId) {
+            return <div>...</div>
+        }
+
+        if (userFavorites?.includes(movieId)) {
+            updateDoc(userFavoritesRef, {
+                favorites: arrayRemove(movieId),
+            });
+        } else {
+            updateDoc(userFavoritesRef, {
+                favorites: arrayUnion(movieId),
+            });
+        }
+    }
 
     const mediaType = props.mediaType
 
@@ -112,8 +96,6 @@ export const MovieCard: FC<Props> = (props) => {
     if (!movie) {
         return <div>Loading...</div>;
     }
-
-
 
     return (
         <>
@@ -134,11 +116,8 @@ export const MovieCard: FC<Props> = (props) => {
                                     <h3 className='headtext text-xs max-w-[15ch]'>{props.movie?.title ? props.movie?.title : props.movie?.name}</h3>
                                     <button className='border-none bg-purple-600 text-white px-1.5 py-0 text-[.4rem] custom__button'>HD</button>
                                 </div>
-                                <button onClick={() => handleToggleFavorite(movie.id!)} className='transition-all hover:bg-amber-400 flex justify-center items-center border-solid border-x border-y border-amber-400 rounded-3xl w-6 h-6'>
-                                    {isFavorite ?
-                                        <CheckIcon className='custom__icon transition-all  w-4 h-4' />
-                                        :
-                                        <BookmarkIcon className='custom__icon transition-all hover:text-white text-amber-400 fill-amber-400 w-4 h-4' />}
+                                <button className='transition-all hover:bg-amber-400 flex justify-center items-center border-solid border-x border-y border-amber-400 rounded-3xl w-6 h-6'>
+                                    {userFavorites?.includes(movie!.id.toString()) ? <CheckIcon className='custom__icon transition-all hover:text-white text-amber-40 w-4 h-4' /> : <BookmarkIcon className='custom__icon transition-all hover:text-white text-amber-400 fill-amber-400 w-4 h-4' />}
                                 </button>
                             </div>
                             <div className='flex flex-row gap-1'>
