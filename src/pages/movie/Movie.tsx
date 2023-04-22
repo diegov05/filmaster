@@ -6,7 +6,10 @@ import { useParams, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { key } from '../main/constants/requests';
 import { StarIcon, ChevronDoubleUpIcon, ChevronDoubleDownIcon } from '@heroicons/react/24/outline';
-import { Movie, MovieDetails, Provider, Review, LocationState } from '../../interfaces/interfaces';
+import { Movie, MovieDetails, Provider, Review, LocationState, RatingMovieData } from '../../interfaces/interfaces';
+import { options } from './apiData';
+import { FaImdb } from 'react-icons/fa';
+
 
 export type IMovieProps = {
 }
@@ -27,17 +30,43 @@ const Movie: React.FC<IMovieProps> = (props) => {
 
     const [trailerKey, setTrailerKey] = useState<string | null>(null)
 
+    const [ratingMovieData, setRatingMovieData] = useState<RatingMovieData | null>(null);
+
     const auth = getAuth()
 
     useEffect(() => {
-        async function fetchMovie() {
-            const response = await fetch(`https://api.themoviedb.org/3/${mediaType}/${id}?api_key=${key}&append_to_response=watch/providers,reviews`);
-            const data = await response.json();
-            setMovie(data);
-        }
+        async function fetchData() {
+            try {
+                const movieResponse = await fetch(`https://api.themoviedb.org/3/${mediaType}/${id}?api_key=${key}&append_to_response=watch/providers,reviews`)
+                const data: Movie = await movieResponse.json()
 
-        fetchMovie();
-    }, [movieId]);
+                setMovie(data)
+
+                const mediaRequestType = data.name ? "show" : "movie"
+
+                const options = {
+                    method: 'GET',
+                    url: 'https://mdblist.p.rapidapi.com/',
+                    params: { tm: `${id}`, m: `${mediaRequestType}` },
+                    headers: {
+                        'X-RapidAPI-Key': '8463b6e131msh88790a275d6c7abp1bf763jsndf6af155901a',
+                        'X-RapidAPI-Host': 'mdblist.p.rapidapi.com'
+                    }
+                };
+
+                await axios.request(options).then(function (response) {
+                    console.log(options)
+                    console.log(response)
+                    setRatingMovieData(response.data)
+                }).catch(function (error) {
+                    console.error(error);
+                });
+            } catch (error) {
+                console.error(error)
+            }
+        }
+        fetchData()
+    }, [id, options])
 
     useEffect(() => {
         axios.get(`https://api.themoviedb.org/3/${mediaType}/${id}/videos?api_key=${key}&language=en-US`)
@@ -53,15 +82,21 @@ const Movie: React.FC<IMovieProps> = (props) => {
     useEffect(() => {
         async function fetchMovieDetails() {
             const response = await axios.get(
-                `https://api.themoviedb.org/3/${mediaType}/${movie?.id}?api_key=${key}&append_to_response=credits`
+                `https://api.themoviedb.org/3/${mediaType}/${id}?api_key=${key}&append_to_response=credits`
             );
 
             setMovieDetails(response.data);
         }
 
         fetchMovieDetails();
-    }, [movie?.id]);
+    }, [id]);
 
+    if (!ratingMovieData) {
+        return <div>Loading...</div>
+    }
+
+    const metaScore = ratingMovieData.ratings[1].score
+    const imdbRating = ratingMovieData.ratings[0].value
 
     if (!movie) {
         return <div>Loading...</div>;
@@ -73,8 +108,6 @@ const Movie: React.FC<IMovieProps> = (props) => {
     const providers = movie["watch/providers"].results["US"] === undefined ? null : movie["watch/providers"].results;
 
     const streamingProviders = providers !== null ? providers["US"].flatrate ? providers["US"].flatrate : providers["US"].buy : null;
-
-
 
     const sortedProviders = streamingProviders !== null ? [...streamingProviders].sort(
         (a, b) => a.display_priority - b.display_priority
@@ -128,6 +161,25 @@ const Movie: React.FC<IMovieProps> = (props) => {
                             <h2 className='uppercase text-lg font-thin tracking-widest subtitle'>Overview</h2>
                         </div>
                         <p className='paragraph text-lg font-normal'>{movie.overview}</p>
+                        <div className='flex flex-row gap-2'>
+                            <div className='w-min flex flex-row justify-between items-center gap-2 p-1 bg-zinc-800'>
+                                <FaImdb className='custom__icon w-8 h-8 fill-amber-400' />
+                                <div className='flex flex-col'>
+                                    <span className='headtext'>{imdbRating}</span>
+                                    <span className='subtitle text-xs'>({ratingMovieData?.ratings[0].votes})</span>
+                                </div>
+                            </div>
+                            <div className='w-min flex flex-row justify-between items-center gap-2  bg-zinc-800'>
+                                <div className={`flex flex-col justify-center items-center h-full ${metaScore! > 50 && metaScore! < 70 ? "bg-amber-400" : metaScore! > 70 ? "bg-green-500" : "bg-red-600"} px-2 py-1`}>
+                                    <span className='font-black'>{ratingMovieData?.ratings[1].score}</span>
+                                </div>
+                                <div className='flex p-2 flex-col'>
+                                    <span className='headtext'>Metascore</span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <button className='w-52 custom__button headtext uppercase rounded-none outline-0 border-0 bg-amber-400 text-black py-4'>Add to Favorites</button>
                     </div>
                 </div>
                 <div className='flex flex-row w-full mt-8 justify-start gap-8 border-t border-zinc-500 pt-8'>

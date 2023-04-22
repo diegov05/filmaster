@@ -127,3 +127,14 @@ export interface AvatarSize {
 export interface LocationState {
     mediaType: string;
 }
+
+export interface RatingMovieData {
+    ratings: Rating[]
+}
+
+export interface Rating {
+    source: string;
+    value: number;
+    score: number;
+    votes: number;
+}
