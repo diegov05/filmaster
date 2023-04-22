@@ -138,3 +138,7 @@ export interface Rating {
     score: number;
     votes: number;
 }
+
+export interface UserFavorites {
+    favorites: number[];
+}
