@@ -140,5 +140,5 @@ export interface Rating {
 }
 
 export interface UserFavorites {
-    favorites: number[];
+    favorites: string[];
 }

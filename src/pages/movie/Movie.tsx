@@ -25,7 +25,7 @@ const Movie: React.FC<IMovieProps> = (props) => {
 
     const [ratingMovieData, setRatingMovieData] = useState<RatingMovieData | null>(null);
 
-    const [userFavorites, setUserFavorites] = useState<number[]>()
+    const [userFavorites, setUserFavorites] = useState<string[]>()
 
     const movieId = useParams();
     const location = useLocation();

@@ -34,7 +34,8 @@ export const SignUp = () => {
                 const userRef = doc(db, 'user', userCredential.user.uid)
                 await setDoc(userRef, {
                     id: userCredential.user.uid,
-                    email: userCredential.user.email
+                    email: userCredential.user.email,
+                    favorites: ["0"]
                 })
                 console.log('User added to Firestore');
                 navigate('/')
