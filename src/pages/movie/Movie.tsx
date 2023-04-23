@@ -150,7 +150,7 @@ const Movie: React.FC<IMovieProps> = (props) => {
 
             <div className='flex flex-col gap-2 absolute w-full z-10 mt-6 p-4'>
                 <div className='flex flex-row justify-between items-center w-full'>
-                    <h1 className='text-3xl w-[30ch] text-white headtext'>{movie.title}</h1>
+                    <h1 className='text-3xl w-[30ch] text-white headtext'>{movie.title ? movie.title : movie.name}</h1>
                     <div className='flex flex-row gap-4'>
                         <div className='flex flex-col gap-1'>
                             <h3 className='subtitle text-sm text-[#515151] font-black'>TMDB Rating</h3>
