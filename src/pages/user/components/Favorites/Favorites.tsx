@@ -44,9 +44,9 @@ const Favorites: React.FC<IFavoritesProps> = (props) => {
     }, [])
 
     return (
-        <div className='flex flex-row flex-wrap justify-start items-start gap-2'>
+        <div className='flex flex-1 flex-row flex-wrap justify-start items-start gap-2'>
             {movies?.map((movie => (
-                <div className='w-max' key={movie.id}>
+                <div className='' key={movie.id}>
                     <MovieCard key={movie.id} movie={movie} mediaType={movie.name ? "tv" : "movie"} />
                 </div>
             )))

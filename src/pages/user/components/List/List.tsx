@@ -38,7 +38,7 @@ const List: React.FC = () => {
 
     return (
         <div className='mt-36 flex flex-row gap-8'>
-            <ul className='w-[25%] flex flex-col justify-start items-start border-r border-violet-900'>
+            <ul className='w-max flex-4 flex flex-col justify-start items-start border-r border-violet-900'>
                 <li onClick={() => handleListItemClick(0)} className={`${selectedIdx === 0 ? 'selected' : ''} w-full cursor-pointer transition-all hover:bg-violet-900 hover:font-black text-white text-xl py-8 px-8 uppercase`}>
                     Account
                 </li>
@@ -52,39 +52,37 @@ const List: React.FC = () => {
                     Sign Out
                 </li>
             </ul>
-            <div>
-                {selectedIdx === 0 && <Account />}
-                {selectedIdx === 1 && <Account />}
-                {selectedIdx === 2 && <Favorites />}
-                {selectedIdx === 3 && (
-                    <div className='flex flex-col justify-start items-start gap-8'>
-                        <div className='flex flex-col justify-start items-start gap-2'>
-                            <h1 className='headtext uppercase'>Are you sure you want to sign out?</h1>
-                            <div className='flex flex-row gap-2'>
-                                <button
-                                    onClick={() => setSelectedIdx(0)}
-                                    className='custom__button headtext rounded-none uppercase border-0 outline-0 bg-zinc-700 px-6 py-3'>Cancel</button>
-                                <button
-                                    onClick={() => {
-                                        signOut(auth)
-                                        navigate('/login')
-                                    }}
-                                    className='custom__button headtext rounded-none uppercase border-0 outline-0 bg-violet-900 px-6 py-3'>Sign Out</button>
-                            </div>
-                        </div>
-                        <div className='flex flex-col justify-start items-start gap-2'>
-                            <h1 className='headtext uppercase'>Do you want to delete your account?</h1>
-                            <div className='flex flex-row gap-2'>
-                                <button
-                                    onClick={handleDelete}
-                                    className='custom__button headtext rounded-none uppercase border-0 outline-0 bg-rose-700 px-6 py-3'>Delete Account</button>
-                                {error && <div>{error}</div>}
-                            </div>
+            {selectedIdx === 0 && <Account />}
+            {selectedIdx === 1 && <Account />}
+            {selectedIdx === 2 && <Favorites />}
+            {selectedIdx === 3 && (
+                <div className='flex flex-col justify-start items-start gap-8'>
+                    <div className='flex flex-col justify-start items-start gap-2'>
+                        <h1 className='headtext uppercase'>Are you sure you want to sign out?</h1>
+                        <div className='flex flex-row gap-2'>
+                            <button
+                                onClick={() => setSelectedIdx(0)}
+                                className='custom__button headtext rounded-none uppercase border-0 outline-0 bg-zinc-700 px-6 py-3'>Cancel</button>
+                            <button
+                                onClick={() => {
+                                    signOut(auth)
+                                    navigate('/login')
+                                }}
+                                className='custom__button headtext rounded-none uppercase border-0 outline-0 bg-violet-900 px-6 py-3'>Sign Out</button>
                         </div>
                     </div>
-                )}
-            </div>
-        </div >
+                    <div className='flex flex-col justify-start items-start gap-2'>
+                        <h1 className='headtext uppercase'>Do you want to delete your account?</h1>
+                        <div className='flex flex-row gap-2'>
+                            <button
+                                onClick={handleDelete}
+                                className='custom__button headtext rounded-none uppercase border-0 outline-0 bg-rose-700 px-6 py-3'>Delete Account</button>
+                            {error && <div>{error}</div>}
+                        </div>
+                    </div>
+                </div>
+            )}
+        </div>
     );
 };
 
