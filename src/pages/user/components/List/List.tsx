@@ -38,7 +38,7 @@ const List: React.FC = () => {
 
     return (
         <div className='mt-36 flex flex-row gap-8'>
-            <ul className='flex flex-col justify-start items-start border-r border-violet-900'>
+            <ul className='w-[25%] flex flex-col justify-start items-start border-r border-violet-900'>
                 <li onClick={() => handleListItemClick(0)} className={`${selectedIdx === 0 ? 'selected' : ''} w-full cursor-pointer transition-all hover:bg-violet-900 hover:font-black text-white text-xl py-8 px-8 uppercase`}>
                     Account
                 </li>
