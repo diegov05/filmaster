@@ -69,11 +69,11 @@ export const Login = () => {
     return (
 
         <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>
-            < div className='flex flex-col justify-center items-center' >
+            <div className='flex flex-col justify-center items-center' >
                 <div className='mt-16'>
-                    <img className='w-80' src={images.logo} alt="logo" />
+                    <img className='w-32 xl:w-80 lg:w-80 md:w-80 sm:w-80' src={images.logo} alt="logo" />
                 </div>
-                <div className='flex flex-col justify-start items-start mt-8 gap-4'>
+                <div className='flex flex-col justify-start items-start xl:mt-8 lg:mt-8 md:mt-8 sm:mt-8 gap-4'>
                     <form onSubmit={handleLogin} action="" className='flex flex-col justify-start items-start mt-8 gap-4'>
                         <input className='flex justify-start items-center bg-zinc-900 text-white outline-none border-none px-4 py-2 w-[45ch]' placeholder='USERNAME' type="email" onChange={e => setEmail(e.target.value)} required />
                         <input className='flex justify-start items-center bg-zinc-900 text-white outline-none border-none px-4 py-2 w-[45ch]' placeholder='PASSWORD' type="password" onChange={e => setPassword(e.target.value)} required />
