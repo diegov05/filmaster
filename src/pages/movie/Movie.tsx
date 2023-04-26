@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { NavBar } from '../main/components';
+import { Header } from './components';
 import { Movie, MovieDetails, RatingMovieData, UserFavorites } from '../../interfaces/interfaces';
 import { getAuth } from 'firebase/auth';
 import { collection, doc, getFirestore, onSnapshot } from 'firebase/firestore';
@@ -107,10 +108,14 @@ const Movie: React.FC<IMovieProps> = (props) => {
             <div className='flex flex-col bg-[#141414] w-full h-20' >
                 <NavBar authed={user.isAnonymous ? false : true} />
             </div>
-            <Info movie={movie} />
-            <Media movie={movie} userFavorites={userFavorites} mediaType={mediaType} trailerKey={trailerKey} ratingData={ratingMovieData} />
+            <div className='p-4'>
+                <Header movie={movie} />
+                <div className='flex flex-row gap-2'>
+                    <Info movie={movie} />
+                    <Media movie={movie} userFavorites={userFavorites} mediaType={mediaType} trailerKey={trailerKey} ratingData={ratingMovieData} />
 
-
+                </div>
+            </div>
             {/* <div className='flex flex-col gap-2 absolute w-full z-10 mt-6 p-4'>
                 <div className='flex flex-row justify-start items-start gap-8'>
                 </div>

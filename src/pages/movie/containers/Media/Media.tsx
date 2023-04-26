@@ -20,9 +20,13 @@ const Media: React.FC<IMediaProps> = (props) => {
 
     return (
         <div>
-            <Resources movie={movie} trailerKey={trailerKey} />
-            <Rating ratingData={ratingData} />
-            <AddFavoritesButton movie={movie} mediaType={mediaType} userFavorites={userFavorites} />
+            <div className='flex flex-col gap-6'>
+                <Resources movie={movie} trailerKey={trailerKey} />
+                <div className='flex flex-col gap-4'>
+                    <Rating ratingData={ratingData} />
+                    <AddFavoritesButton movie={movie} mediaType={mediaType} userFavorites={userFavorites} />
+                </div>
+            </div>
         </div>
     );
 }

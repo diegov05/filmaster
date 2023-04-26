@@ -4,7 +4,7 @@ import { ChevronDoubleUpIcon, StarIcon } from '@heroicons/react/24/outline';
 
 
 export type IHeaderProps = {
-    movie: Movie
+    movie: Movie | null
 }
 
 const Header: React.FC<IHeaderProps> = (props) => {

@@ -16,8 +16,7 @@ const Info: React.FC<IInfoProps> = (props) => {
     }
 
     return (
-        <div>
-            <Header movie={movie} />
+        <div className='flex flex-col'>
             <Poster movie={movie} />
         </div>
     );
