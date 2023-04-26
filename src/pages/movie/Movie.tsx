@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { NavBar } from '../main/components';
-import { Header } from './components';
+import { Header, Providers, Cast, Reviews } from './components';
 import { Movie, MovieDetails, RatingMovieData, UserFavorites } from '../../interfaces/interfaces';
 import { getAuth } from 'firebase/auth';
 import { collection, doc, getFirestore, onSnapshot } from 'firebase/firestore';
@@ -103,6 +103,10 @@ const Movie: React.FC<IMovieProps> = (props) => {
         return <div>User not logged in.</div>
     }
 
+    if (!movie) {
+        return <div>Movie not fetched.</div>
+    }
+
     return (
         <div>
             <div className='flex flex-col bg-[#141414] w-full h-20' >
@@ -113,18 +117,15 @@ const Movie: React.FC<IMovieProps> = (props) => {
                 <div className='flex flex-row gap-2'>
                     <Info movie={movie} />
                     <Media movie={movie} userFavorites={userFavorites} mediaType={mediaType} trailerKey={trailerKey} ratingData={ratingMovieData} />
-
+                </div>
+                <div className='flex flex-row w-full mt-8 justify-start gap-8 border-t border-zinc-500 pt-8'>
+                    <div className='flex flex-row justify-between gap-12'>
+                        <Providers movie={movie} />
+                        <Cast movieDetails={movieDetails} />
+                        <Reviews reviews={movie.reviews} />
+                    </div>
                 </div>
             </div>
-            {/* <div className='flex flex-col gap-2 absolute w-full z-10 mt-6 p-4'>
-                <div className='flex flex-row justify-start items-start gap-8'>
-                </div>
-            </div>
-            <div className='flex flex-row w-full mt-8 justify-start gap-8 border-t border-zinc-500 pt-8'>
-
-                <div className='flex flex-row'>
-                </div>
-            </div> */}
         </div>
     );
 }

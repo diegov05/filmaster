@@ -2,7 +2,7 @@ import React from 'react';
 import { CastMember, MovieDetails } from '../../../../interfaces/interfaces';
 
 export type ICastProps = {
-    movieDetails: MovieDetails
+    movieDetails: MovieDetails | null
 }
 
 const Cast: React.FC<ICastProps> = (props) => {

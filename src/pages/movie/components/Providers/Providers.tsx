@@ -2,7 +2,7 @@ import React from 'react';
 import { Movie, Provider } from '../../../../interfaces/interfaces';
 
 export type IProvidersProps = {
-    movie: Movie
+    movie: Movie | null
 }
 
 const Providers: React.FC<IProvidersProps> = (props) => {

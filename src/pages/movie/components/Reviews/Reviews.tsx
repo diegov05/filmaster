@@ -1,14 +1,18 @@
 import React from 'react';
 import { StarIcon } from '@heroicons/react/24/outline';
-import { Review } from '../../../../interfaces/interfaces';
+import { ReviewResults } from '../../../../interfaces/interfaces';
 
 export type IReviewsProps = {
-    reviews: Review[]
+    reviews: ReviewResults | undefined
 }
 
 const Reviews: React.FC<IReviewsProps> = (props) => {
 
-    const reviews = props.reviews
+    if (!props.reviews) {
+        return <div>Reviews not fetched.</div>
+    }
+
+    const reviews = props.reviews.results
 
     if (!reviews) {
         return <div>Reviews not loaded.</div>
