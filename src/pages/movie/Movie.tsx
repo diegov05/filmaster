@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { movie } from '../main/containers';
 import { NavBar } from '../main/components';
 import { getAuth } from 'firebase/auth';
 import { useParams, useLocation } from 'react-router-dom';

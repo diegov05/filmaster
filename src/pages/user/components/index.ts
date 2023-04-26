@@ -1,4 +1,4 @@
-import List from "./List/List";
+import List from "../containers/List/List";
 import { NavBar } from "./NavBar/NavBar";
 
 export {

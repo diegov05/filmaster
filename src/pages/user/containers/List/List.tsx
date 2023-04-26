@@ -1,8 +1,8 @@
 import { getAuth, signOut, deleteUser } from 'firebase/auth';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Account } from '../Account/Account';
-import { Favorites } from '../Favorites/Favorites';
+import { Account } from '../../components/Account/Account';
+import { Favorites } from '../../components/Favorites/Favorites';
 import './List.css'
 import { deleteDoc, doc, getFirestore } from 'firebase/firestore';
 
