@@ -112,22 +112,25 @@ const Movie: React.FC<IMovieProps> = (props) => {
             <div className='flex flex-col bg-[#141414] w-full h-20' >
                 <NavBar authed={user.isAnonymous ? false : true} />
             </div>
-            <div className='p-4'>
-                <Header movie={movie} />
-                <div className='w-full flex flex-row'>
-                    <div className='w-1/2'>
-                        <Info movie={movie} />
-                    </div>
-                    <div className='w-full'>
-                        <Media movie={movie} userFavorites={userFavorites} mediaType={mediaType} trailerKey={trailerKey} ratingData={ratingMovieData} />
+            <img className='opacity-20 absolute' src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`} alt="" />
+            <div className='flex flex-col justify-between h-[54rem] w-full p-4'>
+                <div className='absolute'>
+                    <Header movie={movie} />
+                    <div className='w-full flex flex-row'>
+                        <div className='w-1/2'>
+                            <Info movie={movie} />
+                        </div>
+                        <div className='w-full'>
+                            <Media movie={movie} userFavorites={userFavorites} mediaType={mediaType} trailerKey={trailerKey} ratingData={ratingMovieData} />
+                        </div>
                     </div>
                 </div>
-                <div className='flex flex-row w-full mt-8 justify-start gap-8 border-t border-zinc-500 pt-8'>
-                    <div className='flex flex-row justify-between gap-12'>
-                        <Providers movie={movie} />
-                        <Cast movieDetails={movieDetails} />
-                        <Reviews reviews={movie.reviews} />
-                    </div>
+            </div>
+            <div className='flex flex-row w-full mt-8 justify-start gap-8 border-t border-zinc-500 pt-8 mb-8'>
+                <div className='flex flex-row justify-between gap-12'>
+                    <Providers movie={movie} />
+                    <Cast movieDetails={movieDetails} />
+                    <Reviews reviews={movie.reviews} />
                 </div>
             </div>
         </div>

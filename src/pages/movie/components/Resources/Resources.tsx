@@ -32,7 +32,7 @@ const Resources: React.FC<IResourcesProps> = (props) => {
             <div className='w-full border-b border-zinc-500'>
                 <h2 className='uppercase text-lg font-thin tracking-widest subtitle'>Overview</h2>
             </div>
-            <p className='paragraph text-lg font-normal'>{movie.overview}</p>
+            <p className='paragraph__inter text-xl font-normal'>{movie.overview}</p>
         </div>
     );
 }
