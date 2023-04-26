@@ -107,23 +107,6 @@ export interface Review {
     id: string;
 }
 
-export interface Configuration {
-    images: {
-        base_url: string;
-        secure_base_url: string;
-        backdrop_sizes: string[];
-        logo_sizes: string[];
-        poster_sizes: string[];
-        profile_sizes: string[];
-        still_sizes: string[];
-    };
-    change_keys: string[];
-}
-
-export interface AvatarSize {
-    size: string;
-    url: string;
-}
 export interface LocationState {
     mediaType: string;
 }
