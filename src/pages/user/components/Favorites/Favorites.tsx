@@ -45,6 +45,7 @@ const Favorites: React.FC<IFavoritesProps> = (props) => {
 
     return (
         <div className='flex flex-1 flex-row flex-wrap justify-start items-start gap-2'>
+            {movies?.length === 0 ? <span className='w-full flex flex-col justify-center items-center headtext__inter'>It's very lonely in here...<br /> <span className='subtitle__inter text-sm'>Return to the Main Page to add a Movie to Favorites!</span></span> : ""}
             {movies?.map((movie => (
                 <div className='' key={movie.id}>
                     <MovieCard key={movie.id} movie={movie} mediaType={movie.name ? "tv" : "movie"} />
