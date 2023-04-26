@@ -3,10 +3,10 @@ import { Rating, Resources, AddFavoritesButton } from '../../components';
 import { Movie, RatingMovieData, UserFavorites } from '../../../../interfaces/interfaces';
 
 export type IMediaProps = {
-    userFavorites: UserFavorites
-    mediaType: string
-    movie: Movie
-    trailerKey: string
+    userFavorites: string[] | undefined
+    mediaType: string | null
+    movie: Movie | null
+    trailerKey: string | null
     ratingData: RatingMovieData
 }
 

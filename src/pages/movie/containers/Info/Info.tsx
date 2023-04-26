@@ -4,7 +4,7 @@ import { Movie } from '../../../../interfaces/interfaces';
 
 
 export type IInfoProps = {
-    movie: Movie
+    movie: Movie | null
 }
 
 const Info: React.FC<IInfoProps> = (props) => {

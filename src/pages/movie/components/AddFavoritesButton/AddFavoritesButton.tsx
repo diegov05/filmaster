@@ -5,9 +5,9 @@ import { Movie, UserFavorites } from '../../../../interfaces/interfaces';
 import { CheckCircleIcon } from '@heroicons/react/24/outline';
 
 export type IAddFavoritesButtonProps = {
-    userFavorites: UserFavorites
+    userFavorites: string[] | undefined
     movie: Movie
-    mediaType: string
+    mediaType: string | null
 }
 
 
@@ -15,21 +15,26 @@ export type IAddFavoritesButtonProps = {
 const AddFavoritesButton: React.FC<IAddFavoritesButtonProps> = (props) => {
 
     const auth = getAuth()
-
+    const user = auth.currentUser
     const { movie, mediaType, userFavorites } = props
 
-    const favorites = userFavorites.favorites
+    if (!user) {
+        return <div>User not logged in.</div>
+    }
 
     const addToFavorites = (movieId: string | undefined, mediaType: string | null) => {
-        const userId = auth.currentUser?.uid;
+        const userId = user.uid;
         const userFavoritesRef = doc(collection(getFirestore(), 'user'), userId);
 
-        if (!movieId && !userFavorites) {
+        if (!movieId) {
             return <div>...</div>
         }
 
+        if (!userFavorites) {
+            return <div>Favorites not fetched.</div>
+        }
 
-        if (favorites.includes(`${movieId} ${mediaType}`)) {
+        if (userFavorites.includes(`${movieId} ${mediaType}`)) {
             updateDoc(userFavoritesRef, {
                 favorites: arrayRemove(`${movieId} ${mediaType}`),
             });
@@ -40,14 +45,18 @@ const AddFavoritesButton: React.FC<IAddFavoritesButtonProps> = (props) => {
         }
     }
 
+    if (!userFavorites) {
+        return <div>Favorites not fetched.</div>
+    }
+
     return (
         <div>
             <button onClick={() => addToFavorites(movie.id.toString(), mediaType)} className={`flex flex-col justify-center items-center w-max custom__button headtext uppercase rounded-none outline-0 border-0 py-4 px-8 text-black hover:text-amber-400
-                         ${favorites.includes(`${movie.id} ${mediaType}`)
+                         ${userFavorites.includes(`${movie.id} ${mediaType}`)
                     ? "bg-zinc-800 hover:bg-amber-400" :
                     "bg-amber-400 hover:bg-zinc-800"}         
                         `}
-            >{favorites.includes(`${movie.id} ${mediaType}`) ? <CheckCircleIcon className={`w-5 h-5 ${favorites.includes(`${movie.id} ${mediaType}`)
+            >{userFavorites.includes(`${movie.id} ${mediaType}`) ? <CheckCircleIcon className={`w-5 h-5 ${userFavorites.includes(`${movie.id} ${mediaType}`)
                 ? "text-amber-400" :
                 "text-black"} `} /> : "Add to Favorites"}</button>
         </div>
