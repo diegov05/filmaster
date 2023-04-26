@@ -114,9 +114,13 @@ const Movie: React.FC<IMovieProps> = (props) => {
             </div>
             <div className='p-4'>
                 <Header movie={movie} />
-                <div className='flex flex-row gap-2'>
-                    <Info movie={movie} />
-                    <Media movie={movie} userFavorites={userFavorites} mediaType={mediaType} trailerKey={trailerKey} ratingData={ratingMovieData} />
+                <div className='w-full flex flex-row'>
+                    <div className='w-1/2'>
+                        <Info movie={movie} />
+                    </div>
+                    <div className='w-full'>
+                        <Media movie={movie} userFavorites={userFavorites} mediaType={mediaType} trailerKey={trailerKey} ratingData={ratingMovieData} />
+                    </div>
                 </div>
                 <div className='flex flex-row w-full mt-8 justify-start gap-8 border-t border-zinc-500 pt-8'>
                     <div className='flex flex-row justify-between gap-12'>
