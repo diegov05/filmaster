@@ -5,6 +5,13 @@
     color: var(--white-color);
 }
 
+.headtext__inter {
+    font-family: var(--font-base);
+    font-weight: var(--black-text);
+    font-style: normal;
+    color: var(--white-color);
+}
+
 .paragraph {
     font-family: var(--font-base);
     font-weight: var(--bold-text);
@@ -14,7 +21,25 @@
     color: #ffffff;
 }
 
+.paragraph__inter {
+    font-family: var(--font-base);
+    font-weight: var(--bold-text);
+    font-style: normal;
+    font-size: 16px;
+    line-height: 20px;
+    color: #ffffff;
+}
+
 .subtitle {
+    font-family: var(--font-base);
+    font-weight: var(--light-text);
+    font-style: normal;
+    font-size: 32px;
+    line-height: 39px;
+    color: #B5B5B5;
+}
+
+.subtitle__inter {
     font-family: var(--font-base);
     font-weight: var(--light-text);
     font-style: normal;
