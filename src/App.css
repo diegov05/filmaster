@@ -6,7 +6,7 @@
 }
 
 .headtext__inter {
-    font-family: var(--font-base);
+    font-family: var(--font-secondary);
     font-weight: var(--black-text);
     font-style: normal;
     color: var(--white-color);
@@ -22,7 +22,7 @@
 }
 
 .paragraph__inter {
-    font-family: var(--font-base);
+    font-family: var(--font-secondary);
     font-weight: var(--bold-text);
     font-style: normal;
     font-size: 16px;
@@ -40,7 +40,7 @@
 }
 
 .subtitle__inter {
-    font-family: var(--font-base);
+    font-family: var(--font-secondary);
     font-weight: var(--light-text);
     font-style: normal;
     font-size: 32px;
