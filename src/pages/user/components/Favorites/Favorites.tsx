@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { MovieCard } from '../../../main/components';
 import { getAuth } from 'firebase/auth';
-import { collection, doc, getDoc, getFirestore, onSnapshot } from 'firebase/firestore';
+import { collection, doc, getFirestore, onSnapshot } from 'firebase/firestore';
 import axios from 'axios';
 import { key } from '../../../main/constants/requests';
 import { UserFavorites, Movie } from '../../../../interfaces/interfaces';
