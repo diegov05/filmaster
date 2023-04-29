@@ -112,7 +112,7 @@ const Movie: React.FC<IMovieProps> = (props) => {
             <div className='flex flex-col bg-[#141414] w-full h-20' >
                 <NavBar authed={user.isAnonymous ? false : true} />
             </div>
-            <img className='opacity-20 absolute' src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`} alt="" />
+            <img className='opacity-20 absolute blur-md' src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`} alt="" />
             <div className='flex flex-col justify-between h-[54rem] w-full p-4'>
                 <div className='absolute'>
                     <Header movie={movie} />
