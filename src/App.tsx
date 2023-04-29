@@ -42,7 +42,7 @@ const App: FC<AppProps> = (props) => {
 
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<SignUp />} />
-        <Route path='/user' element={<User user={auth.currentUser!} />} />
+        <Route path='/user' element={<User />} />
         <Route path='/movie/:id' element={<Movie />} />
       </Routes>
     </BrowserRouter>
