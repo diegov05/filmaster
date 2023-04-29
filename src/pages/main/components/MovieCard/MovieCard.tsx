@@ -130,7 +130,7 @@ export const MovieCard: FC<Props> = (props) => {
                 </div>
                 <img className='transition-all opacity-50 blur-sm cursor-pointer rounded-3xl h-96 w-64 absolute' src={`https://image.tmdb.org/t/p/original${movie.poster_path}`} alt={`${movie.title}`} />
             </div>}
-            <h3 className='paragraph capitalize cursor-default mb-5'>{movie.title ? movie.title : movie.name}</h3>
+            <h3 className='paragraph capitalize cursor-default mb-5 max-w-[20ch]'>{movie.title ? movie.title : movie.name}</h3>
         </div >
     )
 }
