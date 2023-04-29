@@ -38,9 +38,9 @@ export const MovieCard: FC<Props> = (props) => {
 
     useEffect(() => {
         async function fetchMovie() {
-            const response = await fetch(`https://api.themoviedb.org/3/${props.mediaType}/${props.movie.id}?api_key=${key}&append_to_response=watch/providers,reviews`);
-            const data = await response.json();
-            setMovie(data);
+            const response = await axios.get(`https://api.themoviedb.org/3/${props.mediaType}/${props.movie.id}?api_key=${key}&append_to_response=watch/providers,reviews`);
+            setMovie(response.data);
+            console.log(response.data)
         }
 
         const userId = auth.currentUser?.uid;
@@ -57,8 +57,6 @@ export const MovieCard: FC<Props> = (props) => {
             );
             setMovieDetails(response.data);
         }
-
-        fetchMovieDetails();
 
         fetchMovie();
         fetchMovieDetails()
