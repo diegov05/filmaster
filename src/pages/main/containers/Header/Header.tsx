@@ -78,9 +78,9 @@ export const Header: FC = () => {
 
     return (
         <>
-            <div className='w-full h-[650px]'>
-                <div className='flex w-full h-full'>
-                    <div className="absolute w-full h-[650px] bg-gradient-to-tr from-black"></div>
+            <div className='w-full h-[90vh]'>
+                <div className='flex w-full h-[90vh]'>
+                    <div className="absolute w-full h-[90vh] bg-gradient-to-tr from-black"></div>
                     <img className='w-full h-full object-cover' src={`https://image.tmdb.org/t/p/original${movie?.backdrop_path}`} alt={movie?.title} />
                     <div className='flex-col justify-start items-start absolute w-7/12 top-[50%] p-4 md:p-8'>
                         <h1 className={`headtext text-6xl overflow-hidden cursor-default`}>{movie?.name ? movie?.name : movie?.title ? movie?.title : movie?.name}</h1>
