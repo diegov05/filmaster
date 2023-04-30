@@ -25,20 +25,20 @@ export const Header: FC = () => {
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await fetch(
+                const response = await axios.get(
                     `https://api.themoviedb.org/3/movie/popular?api_key=${key}`
                 );
-                const data = await response.json();
+                const data = response.data
 
                 const randomIndex = Math.floor(Math.random() * data.results.length);
                 const randomMovieId = data.results[randomIndex].id;
 
                 setMovieId(randomMovieId);
 
-                const movieResponse = await fetch(
+                const movieResponse = await axios.get(
                     `https://api.themoviedb.org/3/movie/${randomMovieId}?api_key=${key}`
                 );
-                const movieData = await movieResponse.json();
+                const movieData = movieResponse.data
                 setMovieDetails(movieData);
                 setMovie(movieData)
 
