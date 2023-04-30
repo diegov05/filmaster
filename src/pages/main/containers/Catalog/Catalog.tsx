@@ -108,8 +108,8 @@ export const Catalog: FC<Props> = (props) => {
                 </div>
             </div>
             <div className='flex flex-row flex-wrap justify-center items-center gap-8'>
-                {isPressed ? shows.slice(0, 10).map((movie: Movie) => (
-                    <div className='flex-1 basis-1/6' key={movie?.id}>
+                {isPressed ? shows.slice(0, 12).map((movie: Movie) => (
+                    <div className='flex-1 basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/4 xl:basis-1/5' key={movie?.id}>
                         <MovieCard movie={movie} mediaType={movie.name ? "tv" : "movie"} key={movie?.id} />
                     </div>
                 )) : shows.slice(0, 15).map((movie: Movie) => (
