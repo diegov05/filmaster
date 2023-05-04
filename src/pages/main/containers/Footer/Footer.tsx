@@ -8,66 +8,70 @@ export const Footer: FC = () => {
     return (
         <div className='flex flex-col justify-center items-center mt-48 gap-16'>
             <div className=""><img src={images.logo} alt="logo" className='w-80' /></div>
-            <div className='flex flex-row gap-48'>
-                <div className='flex flex-col gap-4 justify-start items-start'>
-                    <h3 className='headtext font-medium cursor-default'>Filmaster</h3>
-                    <a href="">
-                        <p className="link border-b border-b-transparent hover:border-b-slate-300">Updates</p>
-                    </a>
-                    <a href="">
-                        <p className="link border-b border-b-transparent hover:border-b-slate-300">Beta</p>
-                    </a>
-                    <a href="">
-                        <p className="link border-b border-b-transparent hover:border-b-slate-300">Newsletter</p>
-                    </a>
-                    <a href="">
-                        <p className="link border-b border-b-transparent hover:border-b-slate-300">Collaborations</p>
-                    </a>
+            <div className='flex flex-col gap-12 xl:flex-row xl:gap-36'>
+                <div className='flex flex-row gap-36'>
+                    <div className='flex flex-col gap-4 justify-start items-start'>
+                        <h3 className='headtext font-medium cursor-default'>Filmaster</h3>
+                        <a href="">
+                            <p className="link border-b border-b-transparent hover:border-b-slate-300">Updates</p>
+                        </a>
+                        <a href="">
+                            <p className="link border-b border-b-transparent hover:border-b-slate-300">Beta</p>
+                        </a>
+                        <a href="">
+                            <p className="link border-b border-b-transparent hover:border-b-slate-300">Newsletter</p>
+                        </a>
+                        <a href="">
+                            <p className="link border-b border-b-transparent hover:border-b-slate-300">Collaborations</p>
+                        </a>
+                    </div>
+                    <div className='flex flex-col gap-4 justify-start items-start'>
+                        <h3 className='headtext font-medium cursor-default'>Product</h3>
+                        <a href="">
+                            <p className="link border-b border-b-transparent hover:border-b-slate-300">Business</p>
+                        </a>
+                        <a href="">
+                            <p className="link border-b border-b-transparent hover:border-b-slate-300">Designers</p>
+                        </a>
+                        <a href="">
+                            <p className="link border-b border-b-transparent hover:border-b-slate-300">Classrooms</p>
+                        </a>
+                        <a href="">
+                            <p className="link border-b border-b-transparent hover:border-b-slate-300">Newcomers</p>
+                        </a>
+                    </div>
                 </div>
-                <div className='flex flex-col gap-4 justify-start items-start'>
-                    <h3 className='headtext font-medium cursor-default'>Product</h3>
-                    <a href="">
-                        <p className="link border-b border-b-transparent hover:border-b-slate-300">Business</p>
-                    </a>
-                    <a href="">
-                        <p className="link border-b border-b-transparent hover:border-b-slate-300">Designers</p>
-                    </a>
-                    <a href="">
-                        <p className="link border-b border-b-transparent hover:border-b-slate-300">Classrooms</p>
-                    </a>
-                    <a href="">
-                        <p className="link border-b border-b-transparent hover:border-b-slate-300">Newcomers</p>
-                    </a>
-                </div>
-                <div className='flex flex-col gap-4 justify-start items-start'>
-                    <h3 className='headtext font-medium cursor-default'>Learning</h3>
-                    <a href="">
-                        <p className="link border-b border-b-transparent hover:border-b-slate-300">Learn Hub</p>
-                    </a>
-                    <a href="">
-                        <p className="link border-b border-b-transparent hover:border-b-slate-300">Manuals</p>
-                    </a>
-                    <a href="">
-                        <p className="link border-b border-b-transparent hover:border-b-slate-300">Tutorials</p>
-                    </a>
-                    <a href="">
-                        <p className="link border-b border-b-transparent hover:border-b-slate-300">Communities</p>
-                    </a>
-                </div>
-                <div className='flex flex-col gap-4 justify-start items-start'>
-                    <h3 className='headtext font-medium cursor-default'>Resources</h3>
-                    <a href="">
-                        <p className="link border-b border-b-transparent hover:border-b-slate-300">Tutorials</p>
-                    </a>
-                    <a href="">
-                        <p className="link border-b border-b-transparent hover:border-b-slate-300">Editorials</p>
-                    </a>
-                    <a href="">
-                        <p className="link border-b border-b-transparent hover:border-b-slate-300">Product</p>
-                    </a>
-                    <a href="">
-                        <p className="link border-b border-b-transparent hover:border-b-slate-300">Newsroom</p>
-                    </a>
+                <div className='flex flex-row gap-36'>
+                    <div className='flex flex-col gap-4 justify-start items-start'>
+                        <h3 className='headtext font-medium cursor-default'>Learning</h3>
+                        <a href="">
+                            <p className="link border-b border-b-transparent hover:border-b-slate-300">Learn Hub</p>
+                        </a>
+                        <a href="">
+                            <p className="link border-b border-b-transparent hover:border-b-slate-300">Manuals</p>
+                        </a>
+                        <a href="">
+                            <p className="link border-b border-b-transparent hover:border-b-slate-300">Tutorials</p>
+                        </a>
+                        <a href="">
+                            <p className="link border-b border-b-transparent hover:border-b-slate-300">Communities</p>
+                        </a>
+                    </div>
+                    <div className='flex flex-col gap-4 justify-start items-start'>
+                        <h3 className='headtext font-medium cursor-default'>Resources</h3>
+                        <a href="">
+                            <p className="link border-b border-b-transparent hover:border-b-slate-300">Tutorials</p>
+                        </a>
+                        <a href="">
+                            <p className="link border-b border-b-transparent hover:border-b-slate-300">Editorials</p>
+                        </a>
+                        <a href="">
+                            <p className="link border-b border-b-transparent hover:border-b-slate-300">Product</p>
+                        </a>
+                        <a href="">
+                            <p className="link border-b border-b-transparent hover:border-b-slate-300">Newsroom</p>
+                        </a>
+                    </div>
                 </div>
                 <div className='flex flex-col gap-4 justify-start items-start'>
                     <h3 className='headtext font-medium cursor-default'>About</h3>
