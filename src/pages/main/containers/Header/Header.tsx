@@ -82,8 +82,8 @@ export const Header: FC = () => {
                 <div className='flex w-full h-[90vh]'>
                     <div className="absolute w-full h-[90vh] bg-gradient-to-tr from-black"></div>
                     <img className='w-full h-full object-cover' src={`https://image.tmdb.org/t/p/original${movie?.backdrop_path}`} alt={movie?.title} />
-                    <div className='flex-col justify-start items-start absolute w-7/12 top-[50%] p-4 md:p-8'>
-                        <h1 className={`headtext text-6xl overflow-hidden cursor-default`}>{movie?.name ? movie?.name : movie?.title ? movie?.title : movie?.name}</h1>
+                    <div className='flex-col justify-start items-start absolute w-7/12 top-[60%] md:top-[60%] lg:top-[60%] xl:top-[60%] p-4'>
+                        <h1 className={`headtext text-6xl h-max overflow-hidden cursor-default`}>{movie?.name ? movie?.name : movie?.title ? movie?.title : movie?.name}</h1>
                         <div className='flex gap-4 mt-4'>
                             <StarRating initialValue={movie?.vote_average!} size='xl' id={useId()} />
                             <div className='flex gap-2'>
