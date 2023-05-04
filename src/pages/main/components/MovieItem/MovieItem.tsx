@@ -10,7 +10,7 @@ interface Props {
 
 export const MovieItem: FC<Props> = (props) => {
     return (
-        <div className='flex flex-row justify-start items-start gap-4 transition-all hover:bg-neutral-900 p-4 rounded-lg'>
+        <div className='w-96 flex-shrink-0 scroll-snap-align-center flex flex-row justify-start items-start gap-4 transition-all hover:bg-neutral-900 p-4 rounded-lg'>
             <img className='w-24 transition-all hover:opacity-50 cursor-pointer' src={`https://image.tmdb.org/t/p/original${props.movie?.poster_path}`} alt={`${props.movie?.original_name}`} />
             <div className='flex flex-col gap-2'>
                 <h1 className='headtext text-xs'>{props.movie?.title ? props.movie?.title : props.movie?.original_name}</h1>

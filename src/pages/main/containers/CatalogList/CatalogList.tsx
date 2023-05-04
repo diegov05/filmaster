@@ -1,9 +1,9 @@
 import React, { FC, useEffect, useState } from 'react'
 import "./CatalogList.css"
-import { requests, images } from '../../constants'
+import { requests } from '../../constants'
 import axios from 'axios'
-import { MovieItem } from '../../components'
 import { movie } from '../../containers'
+import { Slider } from '../../components'
 
 export const CatalogList: FC = () => {
 
@@ -32,39 +32,17 @@ export const CatalogList: FC = () => {
     }, [])
 
 
-
     return (
         <div className='flex flex-col xl:flex-row justify-start items-start m-6 mt-16 gap-6 xl:gap-0'>
-            <div className='flex flex-row'>
-                <div>
-                    <h1 className='headtext text-center mb-4 uppercase text-xl border-b border-transparent transition-all cursor-default'>Premieres</h1>
-                    <div className='flex flex-col gap-1'>
-                        {premieresMovies?.slice(0, 4).map((movie: movie) => (
-                            <MovieItem movie={movie} key={movie?.id} />
-                        ))}
-                    </div>
-                </div>
-                <div>
-                    <h1 className='headtext text-center mb-4 uppercase text-xl border-b border-transparent transition-all cursor-default'>Featured</h1>
-                    <div className='flex flex-col gap-8'>
-                        {featuredMovies?.slice(0, 4).map((movie: movie) => (
-                            <MovieItem movie={movie} key={movie?.id} />
-                        ))}
-                    </div>
-                </div>
-                <div>
-                    <h1 className='headtext text-center mb-4 uppercase text-xl border-b border-transparent transition-all cursor-default'>Upcoming</h1>
-                    <div className='flex flex-col gap-8'>
-                        {upcomingMovies?.slice(0, 4).map((movie: movie) => (
-                            <MovieItem movie={movie} key={movie?.id} />
-                        ))}
-                    </div>
-                </div>
+            <div className='flex flex-col w-full'>
+                <Slider movies={premieresMovies} />
+                <Slider movies={featuredMovies} />
+                <Slider movies={upcomingMovies} />
             </div>
             <div className='hidden xl:flex flex-col justify-center items-center'>
                 <img className='h-[300px] xl:h-[750px] rounded-xl' src={`https://image.tmdb.org/t/p/original${movie?.poster_path}`} alt="mario" />
                 <h1 className='headtext from-indigo-500 via-purple-500 to-amber-500 bg-clip-text bg-gradient-to-r text-transparent uppercase mt-4 text-2xl'>Coming Soon</h1>
             </div>
-        </div>
+        </div >
     )
 }
