@@ -35,9 +35,9 @@ export const CatalogList: FC = () => {
     return (
         <div className='flex flex-col xl:flex-row justify-start items-start m-6 mt-16 gap-6 xl:gap-5'>
             <div className='flex flex-col w-full gap-6'>
-                <Slider movies={premieresMovies} />
-                <Slider movies={featuredMovies} />
-                <Slider movies={upcomingMovies} />
+                <Slider title='premieres' movies={premieresMovies} />
+                <Slider title='featured' movies={featuredMovies} />
+                <Slider title='upcoming' movies={upcomingMovies} />
             </div>
             <div className='w-1/2 hidden xl:flex flex-col justify-center items-center'>
                 <img className='h-[300px] xl:h-[650px] rounded-xl' src={`https://image.tmdb.org/t/p/original${movie?.poster_path}`} alt="mario" />
