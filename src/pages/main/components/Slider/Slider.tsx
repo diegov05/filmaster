@@ -4,7 +4,7 @@ import { Movie } from '../../../../interfaces/interfaces'
 import { ChevronLeftIcon } from '@heroicons/react/24/outline'
 import { ChevronRightIcon } from '@heroicons/react/24/outline'
 import { MovieItem } from '../../components'
-
+import "./Slider.css"
 
 export type ISliderProps = {
     movies: Movie[]
@@ -34,7 +34,7 @@ const Slider: React.FC<ISliderProps> = (props) => {
         <div className='w-full'>
             <div className="relative">
                 <h1 className='headtext uppercase'>Premieres</h1>
-                <div ref={containerRef} className="flex overflow-x-hidden scroll-snap-x-mandatory snap-center  gap-4 py-2">
+                <div ref={containerRef} className="flex overflow-x-scroll scroll-snap-x-mandatory snap-center  gap-4 py-2">
                     {movies.map((movie: Movie) => (
                         <MovieItem movie={movie} key={movie.id} />
                     ))}
