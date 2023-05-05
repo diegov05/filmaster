@@ -7,6 +7,7 @@ import { MovieItem } from '../../components'
 import "./Slider.css"
 
 export type ISliderProps = {
+    title: string
     movies: Movie[]
 }
 
@@ -28,12 +29,12 @@ const Slider: React.FC<ISliderProps> = (props) => {
         });
     };
 
-    const movies = props.movies
+    const { movies, title } = props
 
     return (
         <div className='w-full'>
             <div className="relative">
-                <h1 className='headtext uppercase'>Premieres</h1>
+                <h1 className='headtext uppercase'>{title}</h1>
                 <div ref={containerRef} className="flex overflow-x-scroll scroll-snap-x-mandatory snap-center  gap-4 py-2">
                     {movies.map((movie: Movie) => (
                         <MovieItem movie={movie} key={movie.id} />
