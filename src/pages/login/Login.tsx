@@ -24,7 +24,7 @@ export const Login = () => {
         signInWithPopup(auth, new GoogleAuthProvider())
             .then(async response => {
                 try {
-                    const userRef = doc(db, 'users', response.user.uid);
+                    const userRef = doc(db, 'user', response.user.uid);
                     const userDoc = await getDoc(userRef);
 
                     if (userDoc.exists()) {
@@ -33,7 +33,8 @@ export const Login = () => {
                         const userRef = doc(db, 'user', auth.currentUser!.uid)
                         await setDoc(userRef, {
                             id: auth.currentUser!.uid,
-                            email: auth.currentUser!.email
+                            email: auth.currentUser!.email,
+                            favorites: []
                         })
                         console.log('User added to Firestore');
                     }
