@@ -2,8 +2,8 @@ import React, { FC, useEffect, useState } from 'react'
 import "./CatalogList.css"
 import { requests } from '../../constants'
 import axios from 'axios'
-import { movie } from '../../containers'
 import { Slider } from '../../components'
+import { Movie } from '../../../../interfaces/interfaces'
 
 export const CatalogList: FC = () => {
 
@@ -11,7 +11,7 @@ export const CatalogList: FC = () => {
     const [featuredMovies, setFeaturedMovies] = useState([])
     const [upcomingMovies, setUpcomingMovies] = useState([])
 
-    const movie: movie = premieresMovies[Math.floor(Math.random() * premieresMovies.length)]
+    const movie: Movie = premieresMovies[Math.floor(Math.random() * premieresMovies.length)]
 
     useEffect(() => {
         axios.get(requests.trendingMoviesRequest).then((response) => {

@@ -1,6 +1,5 @@
 import React, { FC, useEffect, useState } from 'react'
 import { BookmarkIcon, PlayIcon, CheckIcon } from '@heroicons/react/24/outline'
-import { requests } from '../../constants'
 import { StarRating } from '../../components'
 import { useId } from 'react'
 import axios from 'axios'
