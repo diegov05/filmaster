@@ -37,13 +37,18 @@ export const MovieCard: FC<Props> = (props) => {
     };
 
     useEffect(() => {
-        async function fetchMovie() {
-            const response = await axios.get(`https://api.themoviedb.org/3/${props.mediaType}/${props.movie.id}?api_key=${key}&append_to_response=watch/providers,reviews`);
-            setMovie(response.data);
-            console.log(response.data)
+        async function fetchData() {
+            const movieResponse = await axios.get(`https://api.themoviedb.org/3/${props.mediaType}/${props.movie.id}?api_key=${key}&append_to_response=watch/providers,reviews`);
+            setMovie(movieResponse.data);
+
+            const movieDetailsResponse = await axios.get(
+                `https://api.themoviedb.org/3/movie/${props.movie.id}?api_key=${key}&append_to_response=credits`
+            );
+            setMovieDetails(movieDetailsResponse.data);
         }
 
         const userId = auth.currentUser?.uid;
+
         const userFavoritesRef = doc(collection(getFirestore(), 'user'), userId);
 
         onSnapshot(userFavoritesRef, (snapshot) => {
@@ -51,26 +56,27 @@ export const MovieCard: FC<Props> = (props) => {
             setUserFavorites(userFavoritesData.favorites);
         });
 
-        async function fetchMovieDetails() {
-            const response = await axios.get(
-                `https://api.themoviedb.org/3/movie/${props.movie.id}?api_key=${key}&append_to_response=credits`
-            );
-            setMovieDetails(response.data);
-        }
-
-        fetchMovie();
-        fetchMovieDetails()
+        fetchData()
     }, [props.movie.id]);
 
     const addToFavorites = (movieId: string | undefined, mediaType: string | null) => {
-        const userId = auth.currentUser?.uid;
+
+        if (!auth.currentUser) {
+            return <div>User not logged in.</div>
+        }
+
+        const userId = auth.currentUser.uid;
         const userFavoritesRef = doc(collection(getFirestore(), 'user'), userId);
 
         if (!movieId) {
             return <div>...</div>
         }
 
-        if (userFavorites?.includes(`${movieId} ${mediaType}`)) {
+        if (!userFavorites) {
+            return <div>Loading...</div>
+        }
+
+        if (userFavorites.includes(`${movieId} ${mediaType}`)) {
             updateDoc(userFavoritesRef, {
                 favorites: arrayRemove(`${movieId} ${mediaType}`),
             });
