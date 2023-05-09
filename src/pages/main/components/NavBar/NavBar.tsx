@@ -27,11 +27,12 @@ export const NavBar: FC<INavBarProps> = (props) => {
         },
         {
             option: "Sign Out",
-            onClick: () => signOut(auth)
+            onClick: () => { signOut(auth); navigate('/login') }
         },
     ]
 
     const auth = getAuth()
+
     const navigate = useNavigate()
 
     const [isOpen, setIsOpen] = useState(false)
