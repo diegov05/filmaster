@@ -1,8 +1,9 @@
 import { getAuth } from 'firebase/auth';
 import { arrayRemove, arrayUnion, collection, doc, getFirestore, updateDoc } from 'firebase/firestore';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Movie, UserFavorites } from '../../../../interfaces/interfaces';
 import { CheckCircleIcon } from '@heroicons/react/24/outline';
+import { AuthContext } from '../../../../contexts/AuthContext';
 
 export type IAddFavoritesButtonProps = {
     userFavorites: string[] | undefined
@@ -14,17 +15,19 @@ export type IAddFavoritesButtonProps = {
 
 const AddFavoritesButton: React.FC<IAddFavoritesButtonProps> = (props) => {
 
-    const auth = getAuth()
-    const user = auth.currentUser
     const { movie, mediaType, userFavorites } = props
+
+    const user = useContext(AuthContext)
 
     if (!user) {
         return <div>User not logged in.</div>
     }
 
+    const userFavoritesRef = doc(collection(getFirestore(), 'user'), user.uid);
+
     const addToFavorites = (movieId: string | undefined, mediaType: string | null) => {
-        const userId = user.uid;
-        const userFavoritesRef = doc(collection(getFirestore(), 'user'), userId);
+
+        const userFavoritesRef = doc(collection(getFirestore(), 'user'), user.uid);
 
         if (!movieId) {
             return <div>...</div>
