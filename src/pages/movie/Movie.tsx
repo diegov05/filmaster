@@ -83,8 +83,6 @@ const Movie: React.FC<IMovieProps> = (props) => {
                 );
                 setMovieDetails(movieDetailsResponse.data);
 
-                console.log(user)
-
                 if (!user) {
                     return <div>User not found.</div>
                 }
