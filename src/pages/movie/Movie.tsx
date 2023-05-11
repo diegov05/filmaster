@@ -103,7 +103,7 @@ const Movie: React.FC<IMovieProps> = (props) => {
             }
         }
         fetchData();
-    }, [user]);
+    }, [user, id]);
 
     if (!ratingMovieData) {
         return <div>Loading...</div>;
