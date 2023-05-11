@@ -11,7 +11,7 @@ import './SearchBar.css'
 import { MovieResult } from './MovieResult';
 
 export const SearchBar = () => {
-    const navigate = useNavigate()
+
     const [query, setQuery] = useState('');
     const [results, setResults] = useState<Movie[]>([]);
 
@@ -42,7 +42,7 @@ export const SearchBar = () => {
 
             {results.length > 0 && (
                 <div className='scrollbar mt-2 bg-zinc-800 rounded-xl first-letter: h-96 w-full z-50 absolute'>
-                    {results.map((movie) => <MovieResult movie={movie} mediaType={movie.media_type} />)}
+                    {results.map((movie) => <MovieResult movie={movie} key={movie.id} mediaType={movie.media_type} />)}
                 </div>
             )
             }
