@@ -16,7 +16,6 @@ export const Header: FC = () => {
     const [movie, setMovie] = useState<Movie | null>(null);
     const [userFavorites, setUserFavorites] = useState<string[]>()
 
-
     const auth = getAuth()
 
     const mediaType = movie?.name ? "tv" : "movie"
@@ -25,7 +24,7 @@ export const Header: FC = () => {
         async function fetchData() {
             try {
                 const response = await axios.get(
-                    `https://api.themoviedb.org/3/movie/popular?api_key=${key}`
+                    `https://api.themoviedb.org/3/discover/movie?api_key=${key}&without_genres=27,14`
                 );
                 const data = response.data
 
@@ -81,13 +80,13 @@ export const Header: FC = () => {
                 <div className='flex w-full h-[90vh]'>
                     <div className="absolute w-full h-[90vh] bg-gradient-to-tr from-black"></div>
                     <img className='w-full h-full object-cover' src={`https://image.tmdb.org/t/p/original${movie?.backdrop_path}`} alt={movie?.title} />
-                    <div className='flex-col justify-start items-start absolute w-7/12 top-[60%] md:top-[60%] lg:top-[60%] xl:top-[60%] p-4'>
-                        <h1 className={`headtext text-6xl h-max overflow-hidden cursor-default`}>{movie?.name ? movie?.name : movie?.title ? movie?.title : movie?.name}</h1>
+                    <div className='flex-col justify-start items-start absolute w-full top-[60%] md:top-[60%] lg:top-[60%] xl:top-[60%] p-4'>
+                        <h1 className={`headtext text-4xl sm:max-2xl:text-6xl w-[10ch] cursor-default`}>{movie?.name ? movie?.name : movie?.title ? movie?.title : movie?.name}</h1>
                         <div className='flex gap-4 mt-4'>
                             <StarRating initialValue={movie?.vote_average!} size='xl' id={useId()} />
                             <div className='flex gap-2'>
                                 <div onClick={() => addToFavorites(movie?.id.toString(), mediaType)} className='transition-all hover:bg-amber-400 flex justify-center items-center border-solid border-x border-y border-amber-400 rounded-3xl w-9 h-9'>
-                                    {userFavorites?.includes(`${movie?.id} ${mediaType}`) ? <CheckIcon className='custom__icon transition-all hover:text-white text-amber-40 w-7 h-7' /> : <BookmarkIcon className='custom__icon transition-all hover:text-white text-amber-400 fill-amber-400 w-7 h-7' />}
+                                    {userFavorites?.includes(`${movie?.id} ${mediaType}`) ? <CheckIcon className='custom__icon transition-all hover:text-white text-amber-400 w-7 h-7' /> : <BookmarkIcon className='custom__icon transition-all hover:text-white text-amber-400 fill-amber-400 w-7 h-7' />}
                                 </div>
                                 <Link
                                     to={{
@@ -96,7 +95,7 @@ export const Header: FC = () => {
                                     }}
                                 >
                                     <div className='transition-all hover:bg-purple-600 hover:border-purple-600 flex justify-center items-center border-solid border-purple-600 border-x border-y bg-transparent rounded-3xl w-9 h-9 '>
-                                        <PlayIcon className='transition-all hover:text-white text-purple-600 fill-purple-600 custom__icon w-7 h-7' />
+                                        <PlayIcon className='transition-all hover:text-white text-purple-600 custom__icon w-7 h-7' />
                                     </div>
                                 </Link>
                             </div>
